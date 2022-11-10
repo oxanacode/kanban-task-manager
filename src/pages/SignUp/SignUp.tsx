@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../../constants/routes';
 
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import { registerUser } from '../../store/slices/user/userThunks';
 
 interface IFormInput {
