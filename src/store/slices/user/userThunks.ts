@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { IUserInfo } from './userSlice';
+
 import { API_PATH } from '../../../constants/API_PATH';
 import { URL } from '../../../constants/URL';
 import { RootState } from '../../store';
@@ -51,13 +53,7 @@ export const authUser = createAsyncThunk<ITokenData, Omit<ICreateUser, 'name'>, 
   }
 );
 
-interface IUserInfo {
-  _id: string;
-  name: string;
-  login: string;
-}
-
-export const getUsers = createAsyncThunk<IUserInfo[], null>('user/getUsers', async (_, { getState }) => {
+export const getUsers = createAsyncThunk<IUserInfo[], undefined>('user/getUsers', async (_, { getState }) => {
   const state: RootState = <RootState>getState();
   const token = state.user.token;
   const res = await axios.get(`${URL}${API_PATH.users}`, {

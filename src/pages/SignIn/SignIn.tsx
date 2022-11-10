@@ -13,13 +13,17 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { setLogin } from '../../store/slices/user/userSlice';
-import { authUser } from '../../store/slices/user/userThunks';
+import { IUserInfo, setId, setLogin } from '../../store/slices/user/userSlice';
+import { authUser, getUsers } from '../../store/slices/user/userThunks';
 
 interface IFormInput {
   login: string;
   password: string;
 }
+
+const getUserId = (users: IUserInfo[], login: string) => {
+  return users.find((user) => user.login === login)?._id;
+};
 
 export const SignIn = () => {
   const [userInfo, setUserInfo] = useState<IFormInput | null>(null);
@@ -27,30 +31,40 @@ export const SignIn = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IFormInput>();
 
   const dispatch = useAppDispatch();
-  const token = useAppSelector((state) => state.user.token);
+  const userState = useAppSelector((state) => state.user);
+  const { token, users, login } = userState;
 
   const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
-    console.log(data);
     dispatch(setLogin(data.login));
     setUserInfo(data);
+    reset();
   };
-
-  // {
-  //       login: 'Mask',
-  //       password: 'Tesla4ever',
-  //     }
 
   useEffect(() => {
     if (userInfo) {
       dispatch(authUser(userInfo));
     }
   }, [dispatch, userInfo]);
+
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(getUsers());
+    }
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (userInfo) {
+      const id = getUserId(users, login) || '';
+      console.log(id);
+      dispatch(setId(id));
+    }
+  }, [users, dispatch]);
   return (
     <CssVarsProvider>
-      {token}
       <Sheet
         sx={{
           width: 300,
@@ -80,7 +94,7 @@ export const SignIn = () => {
             rules={{
               required: 'Field is require',
               pattern: {
-                value: /[a-zA-zа-яА-Я]{2,10}$/,
+                value: /[a-zA-Z0-9]{2,10}$/,
                 message: 'Wrong format',
               },
             }}

@@ -1,16 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { authUser, registerUser } from './userThunks';
+import { authUser, getUsers, registerUser } from './userThunks';
 
 import { LocalStorageKeys } from '../../../types/LocalStorageKeys';
 import { getValueLocalStorage } from '../../../utils/getValueLocalStorage';
 import { setValueLocalStorage } from '../../../utils/setValueLocalStorage';
+
+export interface IUserInfo {
+  _id: string;
+  name: string;
+  login: string;
+}
 
 export interface IInitialState {
   id: string;
   userName: string;
   login: string;
   token: string;
+  isUserLogIn: boolean;
+  users: IUserInfo[];
 }
 
 const initialState: IInitialState = {
@@ -18,6 +26,8 @@ const initialState: IInitialState = {
   userName: '',
   login: '',
   token: getValueLocalStorage(LocalStorageKeys.token),
+  users: [],
+  isUserLogIn: false,
 };
 
 const userSlice = createSlice({
@@ -56,6 +66,19 @@ const userSlice = createSlice({
       })
       .addCase(authUser.rejected, () => {
         console.log('rejected');
+      });
+
+    builder
+      .addCase(getUsers.pending, () => {
+        console.log('pending');
+      })
+      .addCase(getUsers.fulfilled, (state, { payload }) => {
+        state.isUserLogIn = true;
+        console.log(payload);
+        state.users = payload;
+      })
+      .addCase(getUsers.rejected, (state) => {
+        state.isUserLogIn = false;
       });
   },
 });
