@@ -63,9 +63,11 @@ const userSlice = createSlice({
       .addCase(authUser.fulfilled, (state, { payload }) => {
         setValueLocalStorage(LocalStorageKeys.token, payload.token);
         state.token = payload.token;
+        state.isUserLogIn = true;
       })
-      .addCase(authUser.rejected, () => {
+      .addCase(authUser.rejected, (state) => {
         console.log('rejected');
+        state.isUserLogIn = false;
       });
 
     builder

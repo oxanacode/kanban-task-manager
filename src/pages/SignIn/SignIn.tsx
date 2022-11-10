@@ -36,7 +36,7 @@ export const SignIn = () => {
 
   const dispatch = useAppDispatch();
   const userState = useAppSelector((state) => state.user);
-  const { token, users, login } = userState;
+  const { users, login, isUserLogIn } = userState;
 
   const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
     dispatch(setLogin(data.login));
@@ -45,24 +45,20 @@ export const SignIn = () => {
   };
 
   useEffect(() => {
-    if (userInfo) {
+    if (!isUserLogIn && userInfo) {
       dispatch(authUser(userInfo));
     }
-  }, [dispatch, userInfo]);
-
-  useEffect(() => {
-    if (userInfo) {
+    if (isUserLogIn) {
       dispatch(getUsers());
     }
-  }, [dispatch, token]);
+  }, [dispatch, isUserLogIn, userInfo]);
 
   useEffect(() => {
-    if (userInfo) {
+    if (isUserLogIn && users.length) {
       const id = getUserId(users, login) || '';
-      console.log(id);
       dispatch(setId(id));
     }
-  }, [users, dispatch]);
+  }, [dispatch, isUserLogIn, login, users]);
   return (
     <CssVarsProvider>
       <Sheet
