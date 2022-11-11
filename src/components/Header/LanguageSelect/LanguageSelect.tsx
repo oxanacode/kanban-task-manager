@@ -14,7 +14,7 @@ export const LanguageSelect = () => {
   };
 
   return (
-    <Select color={'primary'} defaultValue={navigator.language.split('-')[0]} onChange={handleChange}>
+    <Select color={'primary'} defaultValue={'en'} onChange={handleChange}>
       <Option value="ru">Ru</Option>
       <Option value="en">En</Option>
     </Select>
