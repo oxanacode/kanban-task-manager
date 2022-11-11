@@ -39,19 +39,15 @@ export const SignIn = () => {
   const { users, login, isUserLogIn } = userState;
 
   const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
-    dispatch(setLogin(data.login));
-    setUserInfo(data);
+    dispatch(authUser(data));
     reset();
   };
 
   useEffect(() => {
-    if (!isUserLogIn && userInfo) {
-      dispatch(authUser(userInfo));
-    }
     if (isUserLogIn) {
       dispatch(getUsers());
     }
-  }, [dispatch, isUserLogIn, userInfo]);
+  }, [dispatch, isUserLogIn]);
 
   useEffect(() => {
     if (isUserLogIn && users.length) {
