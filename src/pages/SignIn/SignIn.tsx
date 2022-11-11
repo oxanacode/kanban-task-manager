@@ -3,7 +3,6 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import Button from '@mui/joy/Button';
 
 import Sheet from '@mui/joy/Sheet';
-import { CssVarsProvider } from '@mui/joy/styles';
 import TextField from '@mui/joy/TextField';
 import Typography from '@mui/joy/Typography';
 import React, { useEffect } from 'react';
@@ -55,81 +54,79 @@ export const SignIn = () => {
     }
   }, [dispatch, isUserLogIn, login, users]);
   return (
-    <CssVarsProvider>
-      <Sheet
-        sx={{
-          width: 300,
-          mx: 'auto',
-          my: 4,
-          py: 3,
-          px: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          borderRadius: 'sm',
-          boxShadow: 'md',
-        }}
-        variant="outlined"
-      >
-        <div>
-          <Typography level="h4" component="h1">
-            <b>Welcome!</b>
-          </Typography>
-          <Typography level="body2">Sign in to continue.</Typography>
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
-          <Controller
-            name="login"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: 'Field is require',
-              pattern: {
-                value: /[a-zA-Z0-9]{2,10}$/,
-                message: 'Wrong format',
-              },
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                type="text"
-                label="Login"
-                placeholder="login"
-                startDecorator={<PersonRoundedIcon />}
-              />
-            )}
-          />
-          {errors.login && <Typography level="body2">{errors.login.message}</Typography>}
-          <Controller
-            name="password"
-            defaultValue=""
-            control={control}
-            rules={{
-              required: 'Field is require',
-            }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                type="password"
-                placeholder="password"
-                label="Password"
-                startDecorator={<KeyRoundedIcon />}
-              />
-            )}
-          />
-          {errors.password && <Typography level="body2">{errors.password.message}</Typography>}
-          <Button type="submit" sx={{ mt: 1 }}>
-            Log in
-          </Button>
-        </form>
-        <Typography
-          endDecorator={<Link to={`/${ROUTES.SIGN_UP.path}`}>Sign up</Link>}
-          fontSize="sm"
-          sx={{ alignSelf: 'center' }}
-        >
-          Don&apos;t have an account?
+    <Sheet
+      sx={{
+        width: 300,
+        mx: 'auto',
+        my: 4,
+        py: 3,
+        px: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        borderRadius: 'sm',
+        boxShadow: 'md',
+      }}
+      variant="outlined"
+    >
+      <div>
+        <Typography level="h4" component="h1">
+          <b>Welcome!</b>
         </Typography>
-      </Sheet>
-    </CssVarsProvider>
+        <Typography level="body2">Sign in to continue.</Typography>
+      </div>
+      <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
+        <Controller
+          name="login"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: 'Field is require',
+            pattern: {
+              value: /[a-zA-Z0-9]{2,10}$/,
+              message: 'Wrong format',
+            },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type="text"
+              label="Login"
+              placeholder="login"
+              startDecorator={<PersonRoundedIcon />}
+            />
+          )}
+        />
+        {errors.login && <Typography level="body2">{errors.login.message}</Typography>}
+        <Controller
+          name="password"
+          defaultValue=""
+          control={control}
+          rules={{
+            required: 'Field is require',
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              type="password"
+              placeholder="password"
+              label="Password"
+              startDecorator={<KeyRoundedIcon />}
+            />
+          )}
+        />
+        {errors.password && <Typography level="body2">{errors.password.message}</Typography>}
+        <Button type="submit" sx={{ mt: 1 }}>
+          Log in
+        </Button>
+      </form>
+      <Typography
+        endDecorator={<Link to={`/${ROUTES.SIGN_UP.path}`}>Sign up</Link>}
+        fontSize="sm"
+        sx={{ alignSelf: 'center' }}
+      >
+        Don&apos;t have an account?
+      </Typography>
+    </Sheet>
   );
 };

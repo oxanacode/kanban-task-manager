@@ -44,7 +44,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, () => {
-        console.log('pending');
+        console.log('registerUser pending');
       })
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         setValueLocalStorage(LocalStorageKeys.userId, payload._id);
@@ -53,12 +53,12 @@ const userSlice = createSlice({
         state.userName = payload.name;
       })
       .addCase(registerUser.rejected, () => {
-        console.log('rejected');
+        console.log('registerUser rejected');
       });
 
     builder
       .addCase(authUser.pending, () => {
-        console.log('pending');
+        console.log('authUser pending');
       })
       .addCase(authUser.fulfilled, (state, { payload }) => {
         setValueLocalStorage(LocalStorageKeys.token, payload.token);
@@ -66,21 +66,21 @@ const userSlice = createSlice({
         state.isUserLogIn = true;
       })
       .addCase(authUser.rejected, (state) => {
-        console.log('rejected');
+        console.log('authUser rejected');
         state.isUserLogIn = false;
       });
 
     builder
       .addCase(getUsers.pending, () => {
-        console.log('pending');
+        console.log('getUsers pending');
       })
       .addCase(getUsers.fulfilled, (state, { payload }) => {
         state.isUserLogIn = true;
-        console.log(payload);
         state.users = payload;
       })
       .addCase(getUsers.rejected, (state) => {
         state.isUserLogIn = false;
+        console.log('getUsers rejected');
       });
   },
 });
