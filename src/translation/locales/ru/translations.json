@@ -20,5 +20,10 @@
   "title": "Заголовок",
   "description": "Описание",
   "createTask": "Создать задачу",
-  "createColumn": "Создать колонку"
+  "createColumn": "Создать колонку",
+  "registration": "Registration",
+  "welcome": "Добро пожаловать!",
+  "alreadyHaveAnAccount": "Уже есть аккаунт?",
+  "signInToContinue.": "Войдите, чтобы продожить",
+  "dontHaveAnAccount?": "У вас нет аккаунта?"
 }

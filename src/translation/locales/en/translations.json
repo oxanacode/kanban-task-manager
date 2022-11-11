@@ -20,5 +20,10 @@
   "title": "Title",
   "description": "Description",
   "createTask": "Create task",
-  "createColumn": "Create column"
+  "createColumn": "Create column",
+  "registration": "Registration",
+  "welcome": "Welcome!",
+  "alreadyHaveAnAccount": "Already have an account?",
+  "signInToContinue.": "Sign in to continue.",
+  "dontHaveAnAccount?": "Don't have an account?"
 }
