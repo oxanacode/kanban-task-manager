@@ -21,9 +21,9 @@
   "description": "Описание",
   "createTask": "Создать задачу",
   "createColumn": "Создать колонку",
-  "registration": "Registration",
+  "registration": "Регистрация",
   "welcome": "Добро пожаловать!",
   "alreadyHaveAnAccount": "Уже есть аккаунт?",
-  "signInToContinue.": "Войдите, чтобы продожить",
+  "signInToContinue.": "Войдите, чтобы продолжить",
   "dontHaveAnAccount?": "У вас нет аккаунта?"
 }
