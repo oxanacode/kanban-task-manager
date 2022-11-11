@@ -6,14 +6,14 @@ import Sheet from '@mui/joy/Sheet';
 import { CssVarsProvider } from '@mui/joy/styles';
 import TextField from '@mui/joy/TextField';
 import Typography from '@mui/joy/Typography';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../constants/routes';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { IUserInfo, setId, setLogin } from '../../store/slices/user/userSlice';
+import { IUserInfo, setId } from '../../store/slices/user/userSlice';
 import { authUser, getUsers } from '../../store/slices/user/userThunks';
 
 interface IFormInput {
@@ -26,7 +26,6 @@ const getUserId = (users: IUserInfo[], login: string) => {
 };
 
 export const SignIn = () => {
-  const [userInfo, setUserInfo] = useState<IFormInput | null>(null);
   const {
     control,
     handleSubmit,
