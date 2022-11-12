@@ -18,15 +18,12 @@ const headerSlice = createSlice({
   reducers: {
     setHeaderNotLogged(state) {
       state.header = HeaderState.notLogged;
-      console.log('change to', HeaderState.notLogged);
     },
     setHeaderMain(state) {
       state.header = HeaderState.main;
-      console.log('change to', HeaderState.main);
     },
     setHeaderLoggedWelcome(state) {
       state.header = HeaderState.loggedWelcome;
-      console.log('change to', HeaderState.loggedWelcome);
     },
     openSideDrawer(state) {
       state.sideDrawer = true;

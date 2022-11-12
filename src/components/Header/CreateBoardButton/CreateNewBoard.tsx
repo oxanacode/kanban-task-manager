@@ -4,5 +4,9 @@ import { useTranslation } from 'react-i18next';
 export const CreateNewBoard = () => {
   const { t } = useTranslation();
 
-  return <Link underline={'none'}>{t('createNewBoard')}</Link>;
+  return (
+    <Link underline={'none'} sx={{ alignSelf: 'center' }}>
+      {t('createNewBoard')}
+    </Link>
+  );
 };
