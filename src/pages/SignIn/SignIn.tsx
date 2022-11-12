@@ -13,7 +13,7 @@ import { ROUTES } from '../../constants/routes';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { setHeaderMain } from '../../store/slices/header/headerSlice';
-import { IUserInfo, setId } from '../../store/slices/user/userSlice';
+import { IUserInfo, setId, setLogin } from '../../store/slices/user/userSlice';
 import { authUser, getUsers } from '../../store/slices/user/userThunks';
 
 interface IFormInput {
@@ -38,6 +38,7 @@ export const SignIn = () => {
   const { users, login, isUserLogIn } = userState;
 
   const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
+    dispatch(setLogin(data.login));
     dispatch(authUser(data));
     reset();
   };
