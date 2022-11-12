@@ -2,8 +2,8 @@ import i18n from 'i18next';
 
 import { initReactI18next } from 'react-i18next';
 
-import en from './translation/locales/en/translations.json';
-import ru from './translation/locales/ru/translations.json';
+import en from './locales/en/translations.json';
+import ru from './locales/ru/translations.json';
 
 i18n.use(initReactI18next).init({
   fallbackLng: 'en',
