@@ -2,6 +2,7 @@ import Button from '@mui/joy/Button';
 import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch } from '../../../store/hooks';
+import { setHeaderNotLogged } from '../../../store/slices/header/headerSlice';
 import { userLogOut } from '../../../store/slices/user/userSlice';
 
 export const SignOutButton = () => {
@@ -10,11 +11,8 @@ export const SignOutButton = () => {
 
   const handleClick = () => {
     dispatch(userLogOut());
+    dispatch(setHeaderNotLogged());
   };
 
-  return (
-    <Button sx={{ width: '100%' }} onClick={handleClick}>
-      {t('signOut')}
-    </Button>
-  );
+  return <Button onClick={handleClick}>{t('signOut')}</Button>;
 };

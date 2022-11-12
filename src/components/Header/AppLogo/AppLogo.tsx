@@ -13,9 +13,9 @@ export const AppLogo = () => {
 
   const handleClick = () => {
     if (isUserLogIn) {
-      dispatch(setHeaderLoggedWelcome);
+      dispatch(setHeaderLoggedWelcome());
     } else {
-      dispatch(setHeaderNotLogged);
+      dispatch(setHeaderNotLogged());
     }
   };
 

@@ -1,6 +1,8 @@
 import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
 
+import { CloseDrawerButton } from './CloseDrawerButton';
+
 import { useAppDispatch } from '../../store/hooks';
 import { closeSideDrawer } from '../../store/slices/header/headerSlice';
 
@@ -39,6 +41,7 @@ export const SideDrawer = () => {
         }}
       />
       <Sheet sx={drawerStyle}>
+        <CloseDrawerButton />
         <Nav placedInHeader={false} />
       </Sheet>
     </Box>

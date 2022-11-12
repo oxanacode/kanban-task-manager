@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setHeaderMain } from '../../store/slices/header/headerSlice';
 import { IUserInfo, setId } from '../../store/slices/user/userSlice';
 import { authUser, getUsers } from '../../store/slices/user/userThunks';
 
@@ -51,6 +52,7 @@ export const SignIn = () => {
     if (isUserLogIn && users.length) {
       const id = getUserId(users, login) || '';
       dispatch(setId(id));
+      dispatch(setHeaderMain());
     }
   }, [dispatch, isUserLogIn, login, users]);
   return (
