@@ -1,6 +1,14 @@
 import Box, { BoxProps } from '@mui/joy/Box';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
-import { cloneElement, ReactElement } from 'react';
+import { cloneElement, ReactElement, useEffect, useState } from 'react';
+
+import { useAppSelector } from '../../store/hooks';
+
+import { AppLogo } from '../Header/AppLogo';
+import { Customization } from '../Header/Customization';
+import { MenuButton } from '../Header/MenuButton';
+import { Nav } from '../Header/Nav';
+import { SideDrawer } from '../SideDrawer';
 
 interface Props {
   children: ReactElement;
@@ -21,6 +29,13 @@ function ElevationScroll(props: Props) {
 }
 
 export const Header = (props: BoxProps) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { sideDrawer } = useAppSelector((state) => state.header);
+
+  useEffect(() => {
+    setDrawerOpen(sideDrawer);
+  }, [sideDrawer]);
+
   return (
     <ElevationScroll {...props}>
       <Box
@@ -44,7 +59,12 @@ export const Header = (props: BoxProps) => {
           },
           ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
         ]}
-      />
+      >
+        <AppLogo />
+        <Customization />
+        <MenuButton />
+        {drawerOpen ? <SideDrawer /> : <Nav placedInHeader={true} />}
+      </Box>
     </ElevationScroll>
   );
 };

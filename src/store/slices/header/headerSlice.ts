@@ -22,9 +22,6 @@ const headerSlice = createSlice({
     setHeaderMain(state) {
       state.header = HeaderState.main;
     },
-    setHeaderMobile(state) {
-      state.header = HeaderState.mobile;
-    },
     setHeaderLoggedWelcome(state) {
       state.header = HeaderState.loggedWelcome;
     },
@@ -37,12 +34,6 @@ const headerSlice = createSlice({
   },
 });
 
-export const {
-  setHeaderNotLogged,
-  setHeaderMain,
-  setHeaderMobile,
-  setHeaderLoggedWelcome,
-  openSideDrawer,
-  closeSideDrawer,
-} = headerSlice.actions;
+export const { setHeaderNotLogged, setHeaderMain, setHeaderLoggedWelcome, openSideDrawer, closeSideDrawer } =
+  headerSlice.actions;
 export default headerSlice.reducer;

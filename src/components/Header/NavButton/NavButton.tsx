@@ -5,13 +5,13 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch } from '../../../store/hooks';
 import { closeSideDrawer } from '../../../store/slices/header/headerSlice';
 
-type AuthButtonType = {
+type NavButtonType = {
   route: string;
   text: string;
   variant: 'plain' | 'outlined' | 'soft' | 'solid';
 };
 
-export const AuthButton = ({ route, text, variant }: AuthButtonType) => {
+export const NavButton = ({ route, text, variant }: NavButtonType) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
