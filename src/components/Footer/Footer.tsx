@@ -31,9 +31,8 @@ export const Footer = () => {
         gap: 2,
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: 'auto',
-        paddingX: { xs: 1, sm: 2 },
-        paddingY: 2,
+        px: { xs: 1, sm: 2 },
+        py: 2,
         bgcolor: 'background.paper',
       }}
     >
