@@ -24,7 +24,7 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
   useEffect(() => {
     if (!isUserLogIn) {
       dispatch(setHeaderNotLogged());
-    } else if (location.pathname === ROUTES.WELCOME.path) {
+    } else if (location.pathname === ROUTES.WELCOME.path || location.pathname === ROUTES.ROOT.path) {
       dispatch(setHeaderLoggedWelcome());
     } else {
       dispatch(setHeaderMain());

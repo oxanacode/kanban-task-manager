@@ -24,7 +24,14 @@ export const Footer = () => {
   return (
     <Box
       component="footer"
-      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', p: 2 }}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 'auto',
+        paddingX: 2,
+        paddingY: 1,
+      }}
     >
       <Link href={SCHOOL_LINK} target="_blank" rel="noreferrer">
         <Box
