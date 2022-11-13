@@ -1,7 +1,9 @@
+import Box from '@mui/joy/Box';
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useAppSelector } from '../../store/hooks';
+import { Footer } from '../Footer';
 
 import { Header } from '../Header';
 import { AppLogo } from '../Header/AppLogo';
@@ -19,7 +21,13 @@ export const Layout = () => {
   }, [sideDrawer]);
 
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+      }}
+    >
       {drawerOpen && <SideDrawer />}
       <Header>
         <AppLogo />
@@ -28,6 +36,7 @@ export const Layout = () => {
         {!drawerOpen && <Nav placedInHeader={true} />}
       </Header>
       <Outlet />
-    </>
+      <Footer />
+    </Box>
   );
 };
