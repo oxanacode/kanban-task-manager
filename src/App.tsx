@@ -2,6 +2,7 @@ import './App.css';
 
 import CssBaseline from '@mui/joy/CssBaseline';
 import { CssVarsProvider } from '@mui/joy/styles';
+import React from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { ToastContainer } from 'react-toastify';
@@ -9,11 +10,15 @@ import { ToastContainer } from 'react-toastify';
 import { Layout } from './components/Layout';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
 import { ROUTES } from './constants/routes';
+import { useLogOutAfterTokenExp } from './hooks/useLogOutAfterTokenExp';
 import { Board, Main, NotFound, Profile, SignIn, SignUp, Welcome } from './pages/';
+
 import { theme } from './utils/mui';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+  useLogOutAfterTokenExp();
+
   return (
     <CssVarsProvider theme={theme} defaultMode="system">
       <CssBaseline>

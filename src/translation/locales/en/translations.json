@@ -25,5 +25,14 @@
   "welcome": "Welcome!",
   "alreadyHaveAnAccount": "Already have an account?",
   "signInToContinue.": "Sign in to continue.",
-  "dontHaveAnAccount?": "Don't have an account?"
+  "dontHaveAnAccount?": "Don't have an account?",
+  "search": "Search",
+  "delete": "Delete",
+  "boardAdded": "Board added",
+  "wrongFormat": "Wrong format",
+  "youveSuccessfullySignedIn": "You've successfully signed in",
+  "fieldIsRequire": "Field is require",
+  "wrongLoginOrPassword": "Wrong Login or Password",
+  "loginAlreadyExist" : "Login already exist",
+  "serverError": "Server Error. Please try again later"
 }

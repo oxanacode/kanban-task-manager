@@ -1,9 +1,9 @@
 {
   "signIn": "Войти",
-  "signUp": "Зарегистрироваться",
+  "signUp": "Создать",
   "signOut": "Выйти",
   "goToMainPage": "На главную страницу",
-  "createNewBoard": "Создать новую доску",
+  "createNewBoard": "Создать доску",
   "profile": "Профиль",
   "edit": "Редактировать",
   "name": "Имя",
@@ -25,5 +25,14 @@
   "welcome": "Добро пожаловать!",
   "alreadyHaveAnAccount": "Уже есть аккаунт?",
   "signInToContinue.": "Войдите, чтобы продолжить",
-  "dontHaveAnAccount?": "У вас нет аккаунта?"
+  "dontHaveAnAccount?": "У вас нет аккаунта?",
+  "search": "Поиск",
+  "delete": "Удалить",
+  "boardAdded": "Доска добавлена",
+  "wrongFormat": "Неверный формат",
+  "youveSuccessfullySignedIn" : "Вы успешно вошли в аккаунт",
+  "fieldIsRequire" : "Обязательное поле",
+  "wrongLoginOrPassword": "Неверный логин или пароль",
+  "loginAlreadyExist" : "Такой логин уже существует",
+  "serverError": "Ошибка сервера. Пожалуйста, попробуйте позднее"
 }
