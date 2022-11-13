@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { authUser, registerUser } from './userThunks';
 
+import { AppLanguage } from '../../../types/LanguageOptions';
 import { LocalStorageKeys } from '../../../types/LocalStorageKeys';
 import { getUserLocale } from '../../../utils/getUserLocale';
 import { getValueLocalStorage } from '../../../utils/getValueLocalStorage';
@@ -23,7 +24,7 @@ export interface IInitialState {
   isUserLogIn: boolean;
   logInErrorCode: number;
   registrationErrorCode: number;
-  locale: string;
+  locale: AppLanguage;
 }
 
 const initialState: IInitialState = {
