@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 
 import { ROUTES } from '../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setHeaderMain } from '../../store/slices/header/headerSlice';
 import { setLogin } from '../../store/slices/user/userSlice';
 import { authUser } from '../../store/slices/user/userThunks';
 
@@ -42,8 +43,9 @@ export const SignInForm = () => {
       reset();
       toast.success(`You've successfully signed in`);
       navigate(ROUTES.MAIN.path);
+      dispatch(setHeaderMain());
     }
-  }, [isUserLogIn, navigate, reset]);
+  }, [dispatch, isUserLogIn, navigate, reset]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
       <Controller

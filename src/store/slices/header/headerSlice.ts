@@ -8,7 +8,7 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  header: HeaderState.notLogged,
+  header: HeaderState.main,
   sideDrawer: false,
 };
 

@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 
 import { ROUTES } from '../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { setHeaderMain } from '../../store/slices/header/headerSlice';
 import { authUser, registerUser } from '../../store/slices/user/userThunks';
 
 interface IFormInput {
@@ -54,8 +55,9 @@ export const SignUpForm = () => {
       reset();
       toast.success(`You've successfully signed in`);
       navigate(ROUTES.MAIN.path);
+      dispatch(setHeaderMain());
     }
-  }, [isUserLogIn, navigate, reset]);
+  }, [dispatch, isUserLogIn, navigate, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
