@@ -23,7 +23,7 @@ export const AdvantageSection = () => {
           maxHeight: '200px',
         }}
       />
-      <Typography level="h5" component="h3" sx={{ textAlign: 'center', fontWeight: 300 }}>
+      <Typography level="h5" component="h3" sx={{ textAlign: 'center', fontWeight: 'sm' }}>
         {text}
       </Typography>
     </Card>

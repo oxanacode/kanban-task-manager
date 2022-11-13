@@ -36,7 +36,9 @@
   "loginAlreadyExist": "Login already exist",
   "serverError": "Server Error. Please try again later",
   "promo": "The simple but efficient way to organize, plan and track progress on your projects.",
-  "promoTitle": "Manage any tasks",
+  "promoTitle1": "Manage",
+  "promoTitle2": "any",
+  "promoTitle3": "tasks",
   "firstAdvantage": "Work in team",
   "secondAdvantage": "Create as many boards as you need",
   "thirdAdvantage": "Track personal tasks"

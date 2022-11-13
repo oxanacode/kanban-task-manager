@@ -6,7 +6,7 @@ import { PromoSection } from '../../components/Welcome/PromoSection';
 
 export const Welcome = () => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, mx: 2, my: 4 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mx: 2, my: 4 }}>
       <PromoSection />
       <AdvantageSection />
     </Box>
