@@ -47,7 +47,13 @@ export const Footer = () => {
         />
       </Link>
       <Typography>2022</Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: { xs: 1, sm: 2 }, marginTop: 'auto' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          gap: { xs: 1, sm: 2 },
+        }}
+      >
         {links}
       </Box>
     </Box>
