@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { authUser, getUsers, registerUser } from './userThunks';
+import { authUser, registerUser } from './userThunks';
 
 import { Language } from '../../../types/LanguageOptions';
 import { LocalStorageKeys } from '../../../types/LocalStorageKeys';
 import { getValueLocalStorage } from '../../../utils/getValueLocalStorage';
+import { removeValueLocalStorage } from '../../../utils/removeValueLocalStorage';
 import { setValueLocalStorage } from '../../../utils/setValueLocalStorage';
 
+export const errorPlug = 9999;
 export interface IUserInfo {
   _id: string;
   name: string;
@@ -19,7 +21,8 @@ export interface IInitialState {
   login: string;
   token: string;
   isUserLogIn: boolean;
-  users: IUserInfo[];
+  logInErrorCode: number;
+  registrationErrorCode: number;
   locale: string;
 }
 
@@ -45,8 +48,9 @@ const initialState: IInitialState = {
   userName: '',
   login: '',
   token: getValueLocalStorage(LocalStorageKeys.token),
-  users: [],
-  isUserLogIn: false,
+  logInErrorCode: 0,
+  isUserLogIn: true,
+  registrationErrorCode: 0,
   locale: getUserLocale(),
 };
 
@@ -54,12 +58,39 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    userLogOut(state) {
+      removeValueLocalStorage(LocalStorageKeys.token);
+      removeValueLocalStorage(LocalStorageKeys.userId);
+      state.id = '';
+      state.userName = '';
+      state.login = '';
+      state.token = '';
+      state.isUserLogIn = false;
+    },
+
+    setUserInfo(state, { payload }) {
+      state.login = payload.login;
+      state.id = payload.id;
+      state.userName = payload.name;
+    },
+
+    setToken(state, { payload }) {
+      state.token = payload;
+    },
+
+    setIsUserLogIn(state, { payload }) {
+      state.isUserLogIn = payload;
+    },
+
     setId(state, { payload }) {
+      setValueLocalStorage(LocalStorageKeys.userId, payload);
       state.id = payload;
     },
+
     setLogin(state, { payload }) {
       state.login = payload;
     },
+
     setLocale(state, { payload }) {
       state.locale = payload;
       setValueLocalStorage(LocalStorageKeys.locale, payload);
@@ -67,47 +98,46 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(registerUser.pending, () => {
-        console.log('registerUser pending');
+
+      .addCase(registerUser.pending, (state) => {
+        state.registrationErrorCode = 0;
       })
+
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         setValueLocalStorage(LocalStorageKeys.userId, payload._id);
         state.id = payload._id;
         state.login = payload.login;
         state.userName = payload.name;
       })
-      .addCase(registerUser.rejected, () => {
-        console.log('registerUser rejected');
+
+      .addCase(registerUser.rejected, (state, { payload }) => {
+        console.log('authUser rejected');
+        state.isUserLogIn = false;
+        if (payload) {
+          state.registrationErrorCode = payload.statusCode ? payload.statusCode : errorPlug;
+        }
       });
 
     builder
-      .addCase(authUser.pending, () => {
+      .addCase(authUser.pending, (state) => {
         console.log('authUser pending');
+        state.logInErrorCode = 0;
       })
+
       .addCase(authUser.fulfilled, (state, { payload }) => {
         setValueLocalStorage(LocalStorageKeys.token, payload.token);
         state.token = payload.token;
-        state.isUserLogIn = true;
       })
-      .addCase(authUser.rejected, (state) => {
+
+      .addCase(authUser.rejected, (state, { payload }) => {
         console.log('authUser rejected');
         state.isUserLogIn = false;
-      });
-
-    builder
-      .addCase(getUsers.pending, () => {
-        console.log('getUsers pending');
-      })
-      .addCase(getUsers.fulfilled, (state, { payload }) => {
-        state.isUserLogIn = true;
-        state.users = payload;
-      })
-      .addCase(getUsers.rejected, (state) => {
-        state.isUserLogIn = false;
-        console.log('getUsers rejected');
+        if (payload) {
+          state.logInErrorCode = payload.statusCode ? payload.statusCode : errorPlug;
+        }
       });
   },
 });
 
-export const { setId, setLogin, setLocale } = userSlice.actions;
+export const { setId, setLogin, userLogOut, setLocale, setIsUserLogIn, setUserInfo, setToken } = userSlice.actions;
 export default userSlice.reducer;
