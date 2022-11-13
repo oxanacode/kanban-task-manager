@@ -33,6 +33,7 @@ export const Footer = () => {
         marginTop: 'auto',
         paddingX: { xs: 1, sm: 2 },
         paddingY: 2,
+        bgcolor: 'background.paper',
       }}
     >
       <Link href={SCHOOL_LINK} target="_blank" rel="noreferrer">
