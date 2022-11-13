@@ -15,7 +15,7 @@ export const PromoSection = () => {
         flexDirection: { xs: 'column-reverse', sm: 'column-reverse', md: 'row' },
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 50,
+        borderRadius: 40,
         p: 2,
       }}
     >

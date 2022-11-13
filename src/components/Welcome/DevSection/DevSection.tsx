@@ -3,29 +3,29 @@ import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import { useTranslation } from 'react-i18next';
 
-import advOne from '../../../assets/images/advantage-1.svg';
-import advTwo from '../../../assets/images/advantage-2.svg';
-import advThree from '../../../assets/images/advantage-3.svg';
+import devOne from '../../../assets/images/dev-1.svg';
+import devTwo from '../../../assets/images/dev-2.svg';
+import devThree from '../../../assets/images/dev-3.svg';
 
-export const AdvantageSection = () => {
+export const DevSection = () => {
   const { t } = useTranslation();
-  const content = [t('firstAdvantage'), t('secondAdvantage'), t('thirdAdvantage')];
-  const images = [advOne, advTwo, advThree];
+  const content = [t('firstDev'), t('secondDev'), t('thirdDev')];
+  const images = [devOne, devTwo, devThree];
 
   const cards = content.map((text, i) => (
     <Card sx={{ display: 'flex', justifyContent: 'space-between', borderRadius: 40, width: '100%', p: 4 }} key={text}>
-      <Typography level="h5" component="h3" sx={{ textAlign: 'center', fontWeight: 'sm' }}>
-        {text}
-      </Typography>
       <Box
         component="img"
         src={images[i]}
-        alt="Promo advantage"
+        alt="Developer avatar"
         sx={{
           width: '100%',
           maxHeight: '200px',
         }}
       />
+      <Typography level="h5" component="h3" sx={{ textAlign: 'center', fontWeight: 'sm' }}>
+        {text}
+      </Typography>
     </Card>
   ));
 
