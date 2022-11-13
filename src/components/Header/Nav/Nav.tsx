@@ -1,10 +1,11 @@
 import Box from '@mui/joy/Box';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 import { ROUTES } from '../../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setHeaderNotLogged } from '../../../store/slices/header/headerSlice';
+import { setHeaderLoggedWelcome, setHeaderMain, setHeaderNotLogged } from '../../../store/slices/header/headerSlice';
 import { HeaderState } from '../../../types/HeaderState';
 import { CreateNewBoard } from '../CreateBoardButton';
 import { MainPageButton } from '../MainPageButton';
@@ -17,13 +18,18 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
   const { header } = useAppSelector((state) => state.header);
   const { isUserLogIn } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const location = useLocation();
   let nav;
 
   useEffect(() => {
     if (!isUserLogIn) {
       dispatch(setHeaderNotLogged());
+    } else if (location.pathname === ROUTES.WELCOME.path) {
+      dispatch(setHeaderLoggedWelcome());
+    } else {
+      dispatch(setHeaderMain());
     }
-  }, [dispatch, isUserLogIn]);
+  }, [dispatch, isUserLogIn, location.pathname]);
 
   const handleDisplay = () => {
     return placedInHeader ? { xs: 'none', sm: 'flex' } : 'flex';
