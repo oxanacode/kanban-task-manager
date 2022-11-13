@@ -6,6 +6,8 @@ import TextField from '@mui/joy/TextField';
 import Typography from '@mui/joy/Typography';
 import React, { useEffect } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -20,6 +22,7 @@ interface IFormInput {
 }
 
 export const SignInForm = () => {
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -30,7 +33,7 @@ export const SignInForm = () => {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isUserLogIn } = useAppSelector((state) => state.user);
+  const { isUserLogIn, locale } = useAppSelector((state) => state.user);
 
   const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
     dispatch(setLogin(data.login));
@@ -40,10 +43,10 @@ export const SignInForm = () => {
   useEffect(() => {
     if (isUserLogIn) {
       reset();
-      toast.success(`You've successfully signed in`);
+      toast.success(t('youveSuccessfullySignedIn'));
       navigate(ROUTES.MAIN.path);
     }
-  }, [isUserLogIn, navigate, reset]);
+  }, [isUserLogIn, locale, navigate, reset, t]);
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
       <Controller
@@ -51,14 +54,23 @@ export const SignInForm = () => {
         control={control}
         defaultValue=""
         rules={{
-          required: 'Field is require',
+          required: {
+            value: true,
+            message: t('fieldIsRequire'),
+          },
           pattern: {
             value: /[a-zA-Z0-9]{2,10}$/,
-            message: 'Wrong format',
+            message: t('wrongFormat'),
           },
         }}
         render={({ field }) => (
-          <TextField {...field} type="text" label="Login" placeholder="login" startDecorator={<PersonRoundedIcon />} />
+          <TextField
+            {...field}
+            type="text"
+            label={t('login')}
+            placeholder={t('login')}
+            startDecorator={<PersonRoundedIcon />}
+          />
         )}
       />
       {errors.login && (
@@ -72,14 +84,17 @@ export const SignInForm = () => {
         defaultValue=""
         control={control}
         rules={{
-          required: 'Field is require',
+          required: {
+            value: true,
+            message: t('fieldIsRequire'),
+          },
         }}
         render={({ field }) => (
           <TextField
             {...field}
             type="password"
-            placeholder="password"
-            label="Password"
+            placeholder={t('password')}
+            label={t('password')}
             startDecorator={<KeyRoundedIcon />}
           />
         )}
@@ -91,7 +106,7 @@ export const SignInForm = () => {
       )}
 
       <Button type="submit" sx={{ mt: 1 }}>
-        Log in
+        {t('signIn')}
       </Button>
     </form>
   );

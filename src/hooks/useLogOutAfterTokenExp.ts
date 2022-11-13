@@ -20,8 +20,9 @@ export const useLogOutAfterTokenExp = () => {
 
   useEffect(() => {
     if (timer) {
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         dispatch(userLogOut());
+        return () => clearTimeout(timeout);
       }, timer);
     }
     if (decryptedToken) {
