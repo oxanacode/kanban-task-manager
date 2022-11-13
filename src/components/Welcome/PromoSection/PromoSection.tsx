@@ -29,8 +29,10 @@ export const PromoSection = () => {
             fontSize: { sm: 60, xs: 32 },
           }}
         >
-          {t('promoTitle1')}
-          <Typography color="primary">{t('promoTitle2')}</Typography>
+          {t('promoTitle1')}{' '}
+          <Typography color="primary" sx={{ p: 0 }}>
+            {t('promoTitle2')}{' '}
+          </Typography>
           {t('promoTitle3')}
         </Typography>
         <Typography

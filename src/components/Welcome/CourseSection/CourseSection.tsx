@@ -18,7 +18,7 @@ export const CourseSection = () => {
     >
       <Typography
         level="h5"
-        component="h3"
+        component="p"
         sx={{
           fontWeight: 'sm',
           textAlign: 'center',
@@ -28,7 +28,7 @@ export const CourseSection = () => {
       </Typography>
       <Typography
         level="h5"
-        component="h3"
+        component="p"
         sx={{
           fontWeight: 'sm',
           textAlign: 'center',
@@ -39,7 +39,6 @@ export const CourseSection = () => {
         </Typography>
         <Typography
           level="h5"
-          component="h3"
           sx={{
             fontWeight: 'sm',
             textAlign: 'center',

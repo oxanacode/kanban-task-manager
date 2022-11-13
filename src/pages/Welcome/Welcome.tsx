@@ -8,7 +8,7 @@ import { PromoSection } from '../../components/Welcome/PromoSection';
 
 export const Welcome = () => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mx: 2, my: 4 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mx: 'auto', my: 4, maxWidth: 1280, px: 2 }}>
       <PromoSection />
       <AdvantageSection />
       <CourseSection />
