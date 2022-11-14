@@ -1,3 +1,4 @@
+import { Sheet } from '@mui/joy';
 import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
 import { Outlet } from 'react-router-dom';
