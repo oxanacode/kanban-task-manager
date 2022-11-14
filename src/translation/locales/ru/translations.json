@@ -30,9 +30,12 @@
   "delete": "Удалить",
   "boardAdded": "Доска добавлена",
   "wrongFormat": "Неверный формат",
-  "youveSuccessfullySignedIn" : "Вы успешно вошли в аккаунт",
-  "fieldIsRequire" : "Обязательное поле",
+  "youveSuccessfullySignedIn": "Вы успешно вошли в аккаунт",
+  "fieldIsRequire": "Обязательное поле",
   "wrongLoginOrPassword": "Неверный логин или пароль",
-  "loginAlreadyExist" : "Такой логин уже существует",
-  "serverError": "Ошибка сервера. Пожалуйста, попробуйте позднее"
+  "loginAlreadyExist": "Такой логин уже существует",
+  "serverError": "Ошибка сервера. Пожалуйста, попробуйте позднее",
+  "pageNotFound": "Страница не найдена",
+  "toWelcomePage": "На промо страницу",
+  "toMainPage": "На главную"
 }

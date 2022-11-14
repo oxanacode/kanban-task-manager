@@ -33,6 +33,9 @@
   "youveSuccessfullySignedIn": "You've successfully signed in",
   "fieldIsRequire": "Field is require",
   "wrongLoginOrPassword": "Wrong Login or Password",
-  "loginAlreadyExist" : "Login already exist",
-  "serverError": "Server Error. Please try again later"
+  "loginAlreadyExist": "Login already exist",
+  "serverError": "Server Error. Please try again later",
+  "pageNotFound": "Page Not Found",
+  "toWelcomePage": "To Welcome Page",
+  "toMainPage": "To Main Page"
 }
