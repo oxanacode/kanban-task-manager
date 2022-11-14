@@ -1,14 +1,7 @@
-import jwtDecode from 'jwt-decode';
-
-import { getValueLocalStorage } from './getValueLocalStorage';
-
-import { IToken } from '../hooks/useLogOutAfterTokenExp';
-import { LocalStorageKeys } from '../types/LocalStorageKeys';
+import { getTimeBeforeExit } from './getTimeBeforeExit';
 
 export const getLoginState = () => {
-  const token = getValueLocalStorage(LocalStorageKeys.token);
-  const decryptedToken = token && (jwtDecode(token) as IToken);
-  const timer = decryptedToken && Math.ceil(+((decryptedToken.exp - Date.now() / 1000) * 1000).toFixed(2));
+  const timer = getTimeBeforeExit();
   if (timer && timer > 0) {
     return true;
   }

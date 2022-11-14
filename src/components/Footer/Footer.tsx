@@ -15,7 +15,8 @@ export const Footer = () => {
       key={dev.nickname}
       underline="none"
       variant="plain"
-      startDecorator={<GitHubIcon sx={{ display: { xs: 'none', sm: 'block' } }} />}
+      color="neutral"
+      startDecorator={<GitHubIcon color="primary" sx={{ display: { xs: 'none', sm: 'block' } }} />}
     >
       {dev.nickname}
     </Link>
@@ -30,9 +31,9 @@ export const Footer = () => {
         gap: 2,
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginTop: 'auto',
-        paddingX: { xs: 1, sm: 2 },
-        paddingY: 2,
+        px: { xs: 1, sm: 2 },
+        py: 2,
+        bgcolor: 'background.paper',
       }}
     >
       <Link href={SCHOOL_LINK} target="_blank" rel="noreferrer">
@@ -46,7 +47,6 @@ export const Footer = () => {
           src={logoLight}
         />
       </Link>
-      <Typography>2022</Typography>
       <Box
         sx={{
           display: 'flex',
@@ -56,6 +56,7 @@ export const Footer = () => {
       >
         {links}
       </Box>
+      <Typography>2022</Typography>
     </Box>
   );
 };
