@@ -20,6 +20,7 @@ type BoardStateType = {
   board: FoundedBoardType;
   columns: ColumnType[];
   title: string;
+  isModalOpened: boolean;
 };
 
 const initialState: BoardStateType = {
@@ -31,6 +32,7 @@ const initialState: BoardStateType = {
   },
   columns: [],
   title: '',
+  isModalOpened: false,
 };
 
 const boardSlice = createSlice({
@@ -39,6 +41,12 @@ const boardSlice = createSlice({
   reducers: {
     clearBoard(state) {
       state.columns = [];
+    },
+    openAddColumnModal(state) {
+      state.isModalOpened = true;
+    },
+    closeAddColumnModal(state) {
+      state.isModalOpened = false;
     },
   },
   extraReducers: (builder) => {
@@ -50,7 +58,7 @@ const boardSlice = createSlice({
         console.log('getBoardById fulfilled');
         state.board = payload;
         state.title = JSON.parse(payload.title).title;
-        console.log(payload);
+        console.log('getBoardById fulfilled');
       })
       .addCase(getBoardById.rejected, () => {
         console.log('getBoardById rejected');
@@ -82,5 +90,5 @@ const boardSlice = createSlice({
   },
 });
 
-export const { clearBoard } = boardSlice.actions;
+export const { clearBoard, openAddColumnModal, closeAddColumnModal } = boardSlice.actions;
 export default boardSlice.reducer;

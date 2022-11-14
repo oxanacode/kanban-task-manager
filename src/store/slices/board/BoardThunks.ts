@@ -1,10 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+import { toast } from 'react-toastify';
+
 import { ColumnType, FoundedBoardType } from './boardSlice';
 
 import { API_PATH } from '../../../constants/API_PATH';
 import { URL } from '../../../constants/URL';
+import i18n from '../../../translation/i18n';
 import { RootState } from '../../store';
 
 export const getBoardById = createAsyncThunk<FoundedBoardType, string, { rejectValue: string }>(
@@ -49,6 +52,7 @@ export const getColumnsInBoard = createAsyncThunk<ColumnType[], string, { reject
       const response = await axios.get(`${URL}${API_PATH.boards}/${id}/${API_PATH.columns}`, config);
 
       dispatch(getBoardById(id));
+      console.log(response);
 
       return response.data;
     } catch (error) {
@@ -61,9 +65,9 @@ export const getColumnsInBoard = createAsyncThunk<ColumnType[], string, { reject
   }
 );
 
-type CreateColumnType = {
+export type CreateColumnType = {
   title: string;
-  boardId: string;
+  id: string;
 };
 
 export const createColumn = createAsyncThunk<ColumnType, CreateColumnType, { rejectValue: string }>(
@@ -82,7 +86,9 @@ export const createColumn = createAsyncThunk<ColumnType, CreateColumnType, { rej
       },
     };
     try {
-      const response = await axios.post(`${URL}${API_PATH.boards}/${data.boardId}/${API_PATH.columns}`, body, config);
+      const response = await axios.post(`${URL}${API_PATH.boards}/${data.id}/${API_PATH.columns}`, body, config);
+
+      toast.success(i18n.t('newColumnIsAdded'));
 
       return response.data;
     } catch (error) {

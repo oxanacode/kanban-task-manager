@@ -8,14 +8,17 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 
+import { AddColumnModal } from '../../components/Board/AddColumnModal';
+
 import { ROUTES } from '../../constants/routes';
 
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { openAddColumnModal } from '../../store/slices/board/boardSlice';
 import { getColumnsInBoard } from '../../store/slices/board/BoardThunks';
 
 export const Board = () => {
   const { t } = useTranslation();
-  const { title } = useAppSelector((state) => state.board);
+  const { title, columns } = useAppSelector((state) => state.board);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -25,7 +28,17 @@ export const Board = () => {
     }
   }, [dispatch, id]);
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    dispatch(openAddColumnModal());
+  };
+
+  const boardColumns = columns.map((column) => (
+    <Box key={column._id} sx={{ width: 260, flexShrink: 0 }}>
+      <Typography component="h4" sx={{ fontSize: { xs: 16, sm: 24 } }}>
+        {column.title}
+      </Typography>
+    </Box>
+  ));
 
   return (
     <Box
@@ -64,11 +77,13 @@ export const Board = () => {
             pr: 2,
           }}
         >
+          {boardColumns}
           <Button startDecorator={<AddRoundedIcon />} sx={{ width: 260, flexShrink: 0 }} onClick={handleClick}>
-            {t('addColumn')}
+            {t('newColumn')}
           </Button>
         </Box>
       </Box>
+      <AddColumnModal />
     </Box>
   );
 };
