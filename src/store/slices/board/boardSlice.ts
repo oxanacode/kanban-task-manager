@@ -19,7 +19,6 @@ export type FoundedBoardType = {
 type BoardStateType = {
   board: FoundedBoardType;
   columns: ColumnType[];
-  title: string;
   isModalOpened: boolean;
 };
 
@@ -31,7 +30,6 @@ const initialState: BoardStateType = {
     users: [],
   },
   columns: [],
-  title: '',
   isModalOpened: false,
 };
 
@@ -57,7 +55,6 @@ const boardSlice = createSlice({
       .addCase(getBoardById.fulfilled, (state, { payload }) => {
         console.log('getBoardById fulfilled');
         state.board = payload;
-        state.title = JSON.parse(payload.title).title;
         console.log('getBoardById fulfilled');
       })
       .addCase(getBoardById.rejected, () => {

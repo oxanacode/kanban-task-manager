@@ -18,7 +18,7 @@ import { getColumnsInBoard } from '../../store/slices/board/BoardThunks';
 
 export const Board = () => {
   const { t } = useTranslation();
-  const { title, columns } = useAppSelector((state) => state.board);
+  const { board, columns } = useAppSelector((state) => state.board);
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
@@ -63,7 +63,7 @@ export const Board = () => {
         {t('toMainPage')}
       </Link>
       <Typography component="h2" sx={{ fontSize: { xs: 24, sm: 36 } }}>
-        {title}
+        {board.title}
       </Typography>
       <Box sx={{ flexGrow: 1, position: 'relative' }}>
         <Box
