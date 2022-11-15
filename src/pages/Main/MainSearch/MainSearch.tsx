@@ -13,6 +13,7 @@ export const MainSearch = () => {
   const { control, handleSubmit, reset } = useForm<FormType>();
 
   const onSubmit: SubmitHandler<FormType> = (data) => {
+    console.log(data);
     reset();
   };
 
