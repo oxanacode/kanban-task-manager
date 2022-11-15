@@ -53,7 +53,6 @@ const boardSlice = createSlice({
         console.log('getBoardById pending');
       })
       .addCase(getBoardById.fulfilled, (state, { payload }) => {
-        console.log('getBoardById fulfilled');
         state.board = payload;
         console.log('getBoardById fulfilled');
       })
@@ -67,7 +66,7 @@ const boardSlice = createSlice({
       })
       .addCase(getColumnsInBoard.fulfilled, (state, { payload }) => {
         console.log('getColumnsInBoard fulfilled');
-        state.columns = payload;
+        state.columns = payload.sort((a, b) => a.order - b.order);
       })
       .addCase(getColumnsInBoard.rejected, () => {
         console.log('getColumnsInBoard rejected');

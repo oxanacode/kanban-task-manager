@@ -73,10 +73,10 @@ export type CreateColumnType = {
 export const createColumn = createAsyncThunk<ColumnType, CreateColumnType, { rejectValue: string }>(
   'board/createColumn',
   async (data, { getState, rejectWithValue }) => {
-    const { user } = getState() as RootState;
+    const { user, board } = getState() as RootState;
     const body = {
       title: data.title,
-      order: 0,
+      order: board.columns.length,
     };
     const config = {
       headers: {
