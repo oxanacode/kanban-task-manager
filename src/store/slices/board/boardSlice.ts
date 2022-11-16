@@ -1,25 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export type ColumnType = {
-  _id: string;
-  title: string;
-  order: number;
-  boardId: string;
-};
-
-export type FoundedBoardType = {
-  _id: string;
-  title: string;
-  owner: string;
-  users: string[];
-};
-
 type BoardStateType = {
   isModalOpened: boolean;
+  columnsLength: number;
 };
 
 const initialState: BoardStateType = {
   isModalOpened: false,
+  columnsLength: 0,
 };
 
 const boardSlice = createSlice({
@@ -32,8 +20,11 @@ const boardSlice = createSlice({
     closeAddColumnModal(state) {
       state.isModalOpened = false;
     },
+    setColumnsLength(state, { payload }) {
+      state.columnsLength = payload;
+    },
   },
 });
 
-export const { openAddColumnModal, closeAddColumnModal } = boardSlice.actions;
+export const { openAddColumnModal, closeAddColumnModal, setColumnsLength } = boardSlice.actions;
 export default boardSlice.reducer;
