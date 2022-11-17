@@ -4,7 +4,13 @@ import { API_PATH } from '../../../constants/API_PATH';
 import { URL } from '../../../constants/URL';
 
 import { RootState } from '../../store';
+import { ICreateUser } from '../user/userThunks';
 import { IUserInfo } from '../users/usersSlice';
+
+interface IUpdateUserBody {
+  id: string;
+  body: ICreateUser;
+}
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
@@ -33,7 +39,11 @@ export const usersApi = createApi({
       query: (id) => ({ url: `${API_PATH.users}/${id}`, method: 'DELETE' }),
       invalidatesTags: [{ type: 'Users', id: 'LIST' }],
     }),
+    updateUser: build.mutation<IUserInfo, IUpdateUserBody>({
+      query: ({ body, id }) => ({ url: `${API_PATH.users}/${id}`, method: 'PUT', body }),
+      invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useDeleteUserMutation } = usersApi;
+export const { useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation } = usersApi;
