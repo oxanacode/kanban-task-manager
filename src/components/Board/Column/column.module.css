@@ -1,13 +1,13 @@
-.taskList::-webkit-scrollbar {
+.list::-webkit-scrollbar {
   width: 5px;
 }
 
-.taskList::-webkit-scrollbar-track {
+.list::-webkit-scrollbar-track {
   background-color: var(--joy-palette-background-body);
   border-radius: 5px;
 }
 
-.taskList::-webkit-scrollbar-thumb {
+.list::-webkit-scrollbar-thumb {
   background-color: var(--joy-palette-grey-200);
   border-radius: 5px;
 }

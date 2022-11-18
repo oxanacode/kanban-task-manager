@@ -8,6 +8,8 @@ import List from '@mui/joy/List';
 import Typography from '@mui/joy/Typography';
 import { FC, useContext, useEffect, useState } from 'react';
 
+import styles from './column.module.css';
+
 import { Context } from '../../../Context/Context';
 import { ReducerTypes } from '../../../Context/contextReducer/ReducerTypes';
 import { useAppDispatch } from '../../../store/hooks';
@@ -23,7 +25,6 @@ import { useGetTasksByColumnIdQuery } from '../../../store/slices/tasks/tasksApi
 import { openAddTaskModal, setDataForAddTask } from '../../../store/slices/tasks/tasksSlice';
 import { Task } from '../../Task/Task';
 import { ColumnTitleInput } from '../ColumnTitleInput';
-import './column.css';
 
 type ColumnPropsType = {
   column: ColumnType;
@@ -98,7 +99,7 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex }) => 
               </>
             )}
           </Box>
-          <Box className="taskList" sx={{ overflowY: 'auto' }}>
+          <Box className={styles.list} sx={{ overflowY: 'auto' }}>
             <Droppable droppableId={column._id} type="tasks">
               {(provided) => (
                 <List
