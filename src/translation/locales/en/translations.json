@@ -72,7 +72,8 @@
   "cancel": "Cancel",
   "change": "Change",
   "newTask": "New task",
+  "updateTask": "Update task",
+  "taskUpdated": "Task updated",
   "yourTasks": "Your tasks",
   "yourHaventtGotTasks": "You haven't got any tasks yet"
-
 }

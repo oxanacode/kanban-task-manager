@@ -11,57 +11,51 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { CreateTaskType, useCreateTaskMutation } from '../../../store/slices/tasks/tasksApi';
-import { closeAddTaskModal, setDataForAddTask } from '../../../store/slices/tasks/tasksSlice';
+import { UpdateTaskType, useUpdateTaskMutation } from '../../../store/slices/tasks/tasksApi';
+import { closeUpdateTaskModal, setDataForUpdateTask } from '../../../store/slices/tasks/tasksSlice';
 
 type FormType = {
   title: string;
   description: string;
 };
 
-export const AddTaskModal = () => {
+export const UpdateTaskModal = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { control, handleSubmit, reset } = useForm<FormType>();
-  const [createTask, { isError, isSuccess }] = useCreateTaskMutation();
-
-  const { isAddModalOpened, dataForAddTask } = useAppSelector((state) => state.tasks);
-  const { id: userId } = useAppSelector((state) => state.user);
-  const columnLength = useAppSelector((state) => {
-    if (dataForAddTask) {
-      const { columnId } = dataForAddTask;
-      return state.board.columnsData[columnId]?.length || 0;
-    }
-    return 0;
-  });
+  const [updateTask, { isError, isSuccess }] = useUpdateTaskMutation();
+  const { isUpdateModalOpened: isModalOpened, dataForUpdateTask } = useAppSelector((state) => state.tasks);
 
   const onClose = () => {
-    dispatch(setDataForAddTask(null));
-    dispatch(closeAddTaskModal());
+    dispatch(setDataForUpdateTask(null));
+    dispatch(closeUpdateTaskModal());
     reset();
   };
 
   const onSubmit: SubmitHandler<FormType> = async (data) => {
-    if (dataForAddTask !== null) {
-      const task: CreateTaskType = {
-        body: { ...data, users: [], order: columnLength, userId },
-        ...dataForAddTask,
+    if (dataForUpdateTask !== null) {
+      const { users, order, userId, columnId, boardId, _id: taskId } = dataForUpdateTask;
+      const task: UpdateTaskType = {
+        body: { ...data, users, order, columnId, userId },
+        columnId,
+        boardId,
+        taskId,
       };
 
-      await createTask(task).unwrap();
+      await updateTask(task).unwrap();
 
       if (isError) {
         toast.error('Error');
       }
       if (isSuccess) {
-        toast.success('taskAdded');
+        toast.success(t('taskUpdated'));
       }
     }
     onClose();
   };
 
   return (
-    <Modal open={isAddModalOpened} onClose={onClose}>
+    <Modal open={isModalOpened} onClose={onClose}>
       <ModalDialog
         aria-labelledby="add-column-modal-dialog-title"
         sx={{
@@ -72,14 +66,14 @@ export const AddTaskModal = () => {
         }}
       >
         <Typography id="add-column-modal-dialog-title" component="h2" level="inherit" fontSize="1.25em" mb="0.25em">
-          {t('newTask')}
+          {t('updateTask')}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={1}>
             <Controller
               name="title"
               control={control}
-              defaultValue=""
+              defaultValue={dataForUpdateTask?.title}
               rules={{ required: 'Field is require' }}
               render={({ field }) => <TextField {...field} label={t('title')} autoFocus required />}
             />
@@ -87,7 +81,7 @@ export const AddTaskModal = () => {
             <Controller
               name="description"
               control={control}
-              defaultValue=""
+              defaultValue={dataForUpdateTask?.description}
               rules={{ required: 'Field is require' }}
               render={({ field }) => {
                 return (
@@ -99,7 +93,7 @@ export const AddTaskModal = () => {
               }}
             />
 
-            <Button type="submit">{t('createTask')}</Button>
+            <Button type="submit">{t('updateTask')}</Button>
           </Stack>
         </form>
       </ModalDialog>

@@ -72,6 +72,8 @@
   "cancel": "Отмена",
   "change": "Изменить",
   "newTask": "Новая задача",
+  "updateTask": "Изменить задачу",
+  "taskUpdated": "Задача изменена",
   "yourTasks": "Ваши задачи",
   "yourHaventtGotTasks": "У вас ещё нет задач"
 }

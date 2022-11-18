@@ -1,15 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { CreateTaskType } from './tasksApi';
+import { CreateTaskType, TaskType } from './tasksApi';
 
 type TasksStateType = {
-  isModalOpened: boolean;
+  isAddModalOpened: boolean;
   dataForAddTask: Omit<CreateTaskType, 'body'> | null;
+  isUpdateModalOpened: boolean;
+  dataForUpdateTask: TaskType | null;
 };
 
 const initialState: TasksStateType = {
-  isModalOpened: false,
+  isAddModalOpened: false,
   dataForAddTask: null,
+  isUpdateModalOpened: false,
+  dataForUpdateTask: null,
 };
 
 const tasksSlice = createSlice({
@@ -17,16 +21,32 @@ const tasksSlice = createSlice({
   initialState,
   reducers: {
     openAddTaskModal(state) {
-      state.isModalOpened = true;
+      state.isAddModalOpened = true;
     },
     closeAddTaskModal(state) {
-      state.isModalOpened = false;
+      state.isAddModalOpened = false;
     },
     setDataForAddTask(state, { payload }) {
       state.dataForAddTask = payload;
     },
+    openUpdateTaskModal(state) {
+      state.isUpdateModalOpened = true;
+    },
+    closeUpdateTaskModal(state) {
+      state.isUpdateModalOpened = false;
+    },
+    setDataForUpdateTask(state, { payload }) {
+      state.dataForUpdateTask = payload;
+    },
   },
 });
 
-export const { openAddTaskModal, closeAddTaskModal, setDataForAddTask } = tasksSlice.actions;
+export const {
+  openAddTaskModal,
+  closeAddTaskModal,
+  setDataForAddTask,
+  openUpdateTaskModal,
+  closeUpdateTaskModal,
+  setDataForUpdateTask,
+} = tasksSlice.actions;
 export default tasksSlice.reducer;
