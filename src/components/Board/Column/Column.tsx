@@ -23,6 +23,7 @@ import { useGetTasksByColumnIdQuery } from '../../../store/slices/tasks/tasksApi
 import { openAddTaskModal, setDataForAddTask } from '../../../store/slices/tasks/tasksSlice';
 import { Task } from '../../Task/Task';
 import { ColumnTitleInput } from '../ColumnTitleInput';
+import './column.css';
 
 type ColumnPropsType = {
   column: ColumnType;
@@ -78,7 +79,7 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex }) => 
         <Box
           {...provided.draggableProps}
           ref={provided.innerRef}
-          sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: 260, flexShrink: 0, height: '100%', mx: 1 }}
+          sx={{ display: 'flex', flexDirection: 'column', gap: 1, width: 280, flexShrink: 0, height: '100%', mx: 1 }}
         >
           <Box
             {...provided.dragHandleProps}
@@ -97,29 +98,29 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex }) => 
               </>
             )}
           </Box>
-          <Box sx={{ borderColor: 'grey.200', borderRadius: 8 }}>
+          <Box className="taskList" sx={{ overflowY: 'auto' }}>
             <Droppable droppableId={column._id} type="tasks">
               {(provided) => (
                 <List
                   ref={provided.innerRef}
                   {...provided.droppableProps}
-                  sx={{ minHeight: 20, display: 'flex', flexDirection: 'column', gap: 1 }}
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 1, mr: 1 }}
                 >
                   {tasks}
                   {provided.placeholder}
                 </List>
               )}
             </Droppable>
-            <Button
-              startDecorator={<AddRoundedIcon />}
-              sx={{ width: 260 }}
-              variant="outlined"
-              color="primary"
-              onClick={onClickAddTask}
-            >
-              Add task
-            </Button>
           </Box>
+          <Button
+            startDecorator={<AddRoundedIcon />}
+            sx={{ width: 280 }}
+            variant="outlined"
+            color="primary"
+            onClick={onClickAddTask}
+          >
+            Add task
+          </Button>
         </Box>
       )}
     </Draggable>
