@@ -23,7 +23,7 @@ export const AddTaskModal = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const { control, handleSubmit, reset } = useForm<FormType>();
-  const [createTask, { isError, isLoading, isSuccess }] = useCreateTaskMutation();
+  const [createTask, { isError, isSuccess }] = useCreateTaskMutation();
 
   const { isModalOpened, dataForAddTask } = useAppSelector((state) => state.tasks);
   const { id: userId } = useAppSelector((state) => state.user);
@@ -40,16 +40,12 @@ export const AddTaskModal = () => {
         body: { ...data, users: [], order: 0, userId },
         ...dataForAddTask,
       };
-      createTask(task).unwrap();
 
-      if (isLoading) {
-        console.log('creating...');
-      }
+      await createTask(task).unwrap();
 
       if (isError) {
         toast.error('Error');
       }
-
       if (isSuccess) {
         toast.success('taskAdded');
       }
@@ -69,10 +65,10 @@ export const AddTaskModal = () => {
         }}
       >
         <Typography id="add-column-modal-dialog-title" component="h2" level="inherit" fontSize="1.25em" mb="0.25em">
-          {t('newColumn')}
+          {t('newTask')}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack>
+          <Stack spacing={1}>
             <Controller
               name="title"
               control={control}
@@ -96,7 +92,7 @@ export const AddTaskModal = () => {
               }}
             />
 
-            <Button type="submit">{t('createNewTask')}</Button>
+            <Button type="submit">{t('createTask')}</Button>
           </Stack>
         </form>
       </ModalDialog>
