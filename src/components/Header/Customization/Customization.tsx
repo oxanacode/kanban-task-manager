@@ -8,7 +8,6 @@ export const Customization = () => {
     <Box
       sx={[
         {
-          marginRight: 6,
           marginLeft: 'auto',
           gap: 2,
           bgcolor: 'background.componentBg',
@@ -19,8 +18,8 @@ export const Customization = () => {
         },
       ]}
     >
-      <ModeToggle />
       <LanguageSelect />
+      <ModeToggle />
     </Box>
   );
 };

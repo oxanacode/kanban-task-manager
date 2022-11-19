@@ -1,58 +1,71 @@
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import Box from '@mui/joy/Box';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
 import { ROUTES } from '../../../constants/routes';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { setHeaderLoggedWelcome, setHeaderMain, setHeaderNotLogged } from '../../../store/slices/header/headerSlice';
+import { useAppSelector } from '../../../store/hooks';
 import { HeaderState } from '../../../types/HeaderState';
 import { CreateNewBoard } from '../CreateBoardButton';
-import { MainPageButton } from '../MainPageButton';
 import { NavButton } from '../NavButton';
-import { ProfileButton } from '../ProfileButton';
 import { SignOutButton } from '../SignOutButton';
 
 export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
   const { t } = useTranslation();
-  const { header } = useAppSelector((state) => state.header);
   const { isUserLogIn } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   const location = useLocation();
+  const [currentLocation, setCurrentLocation] = useState(HeaderState.main);
   let nav;
 
   useEffect(() => {
     if (!isUserLogIn) {
-      dispatch(setHeaderNotLogged());
+      setCurrentLocation(HeaderState.notLogged);
+    } else if (location.pathname === ROUTES.PROFILE.path) {
+      setCurrentLocation(HeaderState.profile);
     } else if (location.pathname === ROUTES.WELCOME.path || location.pathname === ROUTES.ROOT.path) {
-      dispatch(setHeaderLoggedWelcome());
+      setCurrentLocation(HeaderState.loggedWelcome);
     } else {
-      dispatch(setHeaderMain());
+      setCurrentLocation(HeaderState.main);
     }
-  }, [dispatch, isUserLogIn, location.pathname]);
+  }, [isUserLogIn, location.pathname]);
 
   const handleDisplay = () => {
     return placedInHeader ? { xs: 'none', sm: 'flex' } : 'flex';
   };
 
-  switch (header) {
+  switch (currentLocation) {
     case HeaderState.main:
       nav = (
         <>
           <CreateNewBoard />
-          <ProfileButton />
-          <SignOutButton />
+          <NavButton route={ROUTES.PROFILE.path} variant={'solid'} text={t('profile')} isHeader={placedInHeader}>
+            <PersonOutlineRoundedIcon />
+          </NavButton>
+          <SignOutButton isHeader={placedInHeader} />
+        </>
+      );
+      break;
+    case HeaderState.profile:
+      nav = (
+        <>
+          <CreateNewBoard />
+          <NavButton route={ROUTES.MAIN.path} variant={'solid'} text={t('goToMainPage')} isHeader={placedInHeader}>
+            <HomeRoundedIcon />
+          </NavButton>
+          <SignOutButton isHeader={placedInHeader} />
         </>
       );
       break;
     case HeaderState.loggedWelcome:
-      nav = <MainPageButton />;
+      nav = <NavButton route={ROUTES.MAIN.path} variant={'plain'} text={t('goToMainPage')} isHeader={placedInHeader} />;
       break;
     default:
       nav = (
         <>
-          <NavButton route={ROUTES.SIGN_IN.path} variant={'outlined'} text={t('signIn')} />
-          <NavButton route={ROUTES.SIGN_UP.path} variant={'solid'} text={t('signUp')} />
+          <NavButton route={ROUTES.SIGN_IN.path} variant={'outlined'} text={t('signIn')} isHeader={placedInHeader} />
+          <NavButton route={ROUTES.SIGN_UP.path} variant={'solid'} text={t('signUp')} isHeader={placedInHeader} />
         </>
       );
   }
