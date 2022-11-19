@@ -1,28 +1,43 @@
 import Button from '@mui/joy/Button';
-import Link from '@mui/joy/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import IconButton from '@mui/joy/IconButton';
+import Tooltip from '@mui/joy/Tooltip';
+import { Link } from 'react-router-dom';
 
 import { useAppDispatch } from '../../../store/hooks';
 import { closeSideDrawer } from '../../../store/slices/header/headerSlice';
 
 type NavButtonType = {
   route: string;
-  text: string;
+  text?: string;
   variant: 'plain' | 'outlined' | 'soft' | 'solid';
+  isHeader: boolean;
+  children?: React.ReactNode;
 };
 
-export const NavButton = ({ route, text, variant }: NavButtonType) => {
+export const NavButton = ({ route, text, variant, isHeader, children }: NavButtonType) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(closeSideDrawer());
+    if (!isHeader) {
+      dispatch(closeSideDrawer());
+    }
   };
 
-  return (
-    <Link component={RouterLink} to={route} underline={'none'} onClick={handleClick}>
-      <Button variant={variant} sx={{ width: '100%' }}>
-        {text}
-      </Button>
-    </Link>
+  return !isHeader || !children ? (
+    <Button
+      component={Link}
+      to={route}
+      variant={variant}
+      sx={{ width: isHeader ? '120px' : '100%', textAlign: 'center' }}
+      onClick={handleClick}
+    >
+      {text}
+    </Button>
+  ) : (
+    <Tooltip title={text} color="primary" size="sm" variant="plain" arrow>
+      <IconButton component={Link} to={route} onClick={handleClick} variant="outlined">
+        {children}
+      </IconButton>
+    </Tooltip>
   );
 };

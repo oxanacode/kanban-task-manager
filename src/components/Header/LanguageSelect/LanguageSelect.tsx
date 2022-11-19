@@ -28,7 +28,7 @@ export const LanguageSelect = () => {
   return (
     <>
       <Switch
-        color={langSwitch ? 'primary' : 'info'}
+        color="primary"
         checked={langSwitch}
         onChange={handleSwitch}
         componentsProps={{
