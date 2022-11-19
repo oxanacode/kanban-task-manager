@@ -76,5 +76,6 @@
   "taskUpdated": "Задача изменена",
   "yourTasks": "Ваши задачи",
   "yourHaventtGotTasks": "У вас ещё нет задач",
-  "taskDeleted": "Задача удалена"
+  "taskDeleted": "Задача удалена",
+  "taskCount": "Задач: {{count}}"
 }

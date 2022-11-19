@@ -89,6 +89,11 @@ export const tasksApi = createApi({
       providesTags: ['Tasks'],
     }),
 
+    getTasksByBoardId: build.query<TaskType[], string>({
+      query: (boardId) => `${API_PATH.tasksSet}/${boardId}`,
+      providesTags: ['Tasks'],
+    }),
+
     deleteTask: build.mutation<TaskType, DeletedTaskType>({
       query: (data) => ({
         url: `${API_PATH.boards}/${data.boardId}/${API_PATH.columns}/${data.columnId}/tasks/${data.taskId}`,
@@ -104,5 +109,6 @@ export const {
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useGetTasksByUserIdQuery,
+  useGetTasksByBoardIdQuery,
   useDeleteTaskMutation,
 } = tasksApi;
