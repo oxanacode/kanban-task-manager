@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { ROUTES } from '../../constants/routes';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useCreateUserMutation, useLogInUserMutation } from '../../store/slices/user/authApi';
 import { setIsUserLogIn, setToken, setUserInfo } from '../../store/slices/user/userSlice';
 
@@ -33,6 +33,12 @@ export interface IRegError {
 }
 
 export const SignUpForm = () => {
+  const navigate = useNavigate();
+  const { isUserLogIn } = useAppSelector((state) => state.user);
+  if (isUserLogIn) {
+    navigate(ROUTES.MAIN.path);
+  }
+
   const { t } = useTranslation();
   const [createUser, { error: regError }] = useCreateUserMutation();
   const [logInUser, { error: logInError }] = useLogInUserMutation();
@@ -43,8 +49,6 @@ export const SignUpForm = () => {
   } = useForm<IFormInput>({
     mode: 'onChange',
   });
-
-  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -90,7 +94,7 @@ export const SignUpForm = () => {
           },
           pattern: {
             value: /[a-zA-Zа-яА-Я]{2,10}$/,
-            message: t('wrongFormat'),
+            message: `${t('wrongFormat')} (${t('twoToTenLetters')})`,
           },
         }}
         render={({ field }) => (
@@ -101,6 +105,7 @@ export const SignUpForm = () => {
             label={t('name')}
             placeholder={t('name')}
             autoComplete="off"
+            title={t('twoToTenLetters')}
             startDecorator={<AccessibilityNewRoundedIcon />}
           />
         )}
@@ -122,7 +127,7 @@ export const SignUpForm = () => {
           },
           pattern: {
             value: /[a-zA-Z0-9]{2,10}$/,
-            message: t('wrongFormat'),
+            message: `${t('wrongFormat')} (${t('twoToTenLettersLogin')})`,
           },
         }}
         render={({ field }) => (
@@ -132,6 +137,7 @@ export const SignUpForm = () => {
             type="text"
             label={t('login')}
             autoComplete="off"
+            title={t('twoToTenLettersLogin')}
             placeholder={t('login')}
             startDecorator={<PersonRoundedIcon />}
           />
