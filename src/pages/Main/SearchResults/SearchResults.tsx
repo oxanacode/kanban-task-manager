@@ -1,26 +1,38 @@
 import { Box, Sheet, Typography } from '@mui/joy';
 
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { ProfileTask } from '../../../../components/Profile/UserTasks/ProfileTask/ProfileTask';
+import styles from './SearchResults.module.css';
 
-import { useAppSelector } from '../../../../store/hooks';
+import { ProfileTask } from '../../../components/Profile/UserTasks/ProfileTask/ProfileTask';
+
+import { useAppSelector } from '../../../store/hooks';
+import { useGetBoardsByUserIdQuery } from '../../../store/slices/boards/boardsApi';
 
 export const SearchResults = () => {
   const { searchQueryResults } = useAppSelector((state) => state.tasks);
+  const { id } = useAppSelector((state) => state.user);
+  const { data } = useGetBoardsByUserIdQuery(id);
   const { t } = useTranslation();
+  const [queryBoards, setQueryBoards] = useState<string[]>([]);
 
-  const queryBoards = [...new Set(searchQueryResults.map((task) => task.boardId))];
+  useEffect(() => {
+    if (searchQueryResults) {
+      setQueryBoards([...new Set(searchQueryResults.filter((task) => task.userId === id).map((task) => task.boardId))]);
+    }
+  }, [id, searchQueryResults]);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 2 }}>
       {searchQueryResults.length
-        ? queryBoards.map((board, i) => (
+        ? queryBoards.map((board) => (
             <Sheet
               key={board}
               sx={{
                 width: 300,
-                my: 4,
+                height: 350,
+                overflow: 'auto',
                 py: 3,
                 px: 2,
                 display: 'flex',
@@ -30,9 +42,10 @@ export const SearchResults = () => {
                 borderRadius: 'sm',
                 boxShadow: 'md',
               }}
+              className={styles.list}
               variant="outlined"
             >
-              <Typography level="h4">{`${t('board')} ${i + 1}`}</Typography>
+              <Typography level="h4">{data?.find((el) => el._id === board)?.title}</Typography>
               {searchQueryResults
                 .filter((task) => task.boardId === board)
                 .map((task) => (
