@@ -2,12 +2,22 @@ import { Draggable } from '@hello-pangea/dnd';
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Card, CardContent, Typography, IconButton, Menu, MenuItem, ListItemDecorator } from '@mui/joy';
+import {
+  Card,
+  CardContent,
+  Typography,
+  IconButton as IconButtonJoy,
+  Menu,
+  MenuItem,
+  ListItemDecorator,
+} from '@mui/joy';
 import Box from '@mui/joy/Box';
-import Divider from '@mui/joy/Divider';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
 import { FC, useContext, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -49,6 +59,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
   const [deleteTask, { isSuccess }] = useDeleteTaskMutation();
   const [updateSetOfTasks] = useUpdateSetOfTasksMutation();
   const { contextDispatch } = useContext(Context);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     if (isSuccess) {
@@ -106,7 +117,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                 <Typography level="h2" fontSize="lg">
                   {task.title}
                 </Typography>
-                <IconButton
+                <IconButtonJoy
                   variant="plain"
                   color="neutral"
                   size="sm"
@@ -117,7 +128,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                   onClick={onClickOpenMenu}
                 >
                   <MoreIcon />
-                </IconButton>
+                </IconButtonJoy>
 
                 <Menu id="task-menu" anchorEl={anchorEl} open={isOpen} onClose={closeMenu}>
                   <MenuItem onClick={onClickEdit}>
@@ -143,17 +154,34 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
               <Box>
                 <Typography>{task.description}</Typography>
               </Box>
-
               {Boolean(files.length) && (
                 <>
-                  <Divider sx={{ my: 1 }} />
-                  <List sx={{ p: 0 }}>
-                    {files.map((file) => (
-                      <ListItem key={file._id} sx={{ px: 0 }}>
-                        <FileAttachment name={file.name} path={file.path} fileId={file._id} />
-                      </ListItem>
-                    ))}
-                  </List>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+                    <Typography
+                      variant="soft"
+                      sx={{ pr: 1, m: 0, height: 24 }}
+                      startDecorator={<AttachFileRoundedIcon sx={{ fontSize: 16 }} />}
+                    >
+                      {files.length}
+                    </Typography>
+                    <IconButton
+                      onClick={() => setExpanded(!expanded)}
+                      aria-expanded={expanded}
+                      aria-label="show more"
+                      sx={{ ml: 'auto', transform: !expanded ? 'rotate(0deg)' : 'rotate(180deg)' }}
+                    >
+                      <ExpandMoreIcon />
+                    </IconButton>
+                  </Box>
+                  <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <List sx={{ p: 0 }}>
+                      {files.map((file) => (
+                        <ListItem key={file._id} sx={{ px: 0 }}>
+                          <FileAttachment name={file.name} path={file.path} fileId={file._id} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Collapse>
                 </>
               )}
             </CardContent>
