@@ -24,6 +24,7 @@ import { setTitleEditId } from '../../../store/slices/board/boardSlice';
 import { TaskType } from '../../../store/slices/tasks/tasksApi';
 import { openAddTaskModal, setDataForAddTask, setNewTaskOrder } from '../../../store/slices/tasks/tasksSlice';
 import { Task } from '../../Task/Task';
+import { fileToRenderType } from '../Columns/Columns';
 import { ColumnTitleInput } from '../ColumnTitleInput';
 
 type ColumnPropsType = {
@@ -37,9 +38,10 @@ type ColumnPropsType = {
   }[];
   boardIndex: number;
   tasksRefetch: () => void;
+  files: fileToRenderType;
 };
 
-export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex, tasksRefetch }) => {
+export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex, tasksRefetch, files }) => {
   const { title, boardId, _id: columnId, order } = column.columnData;
   const dispatch = useAppDispatch();
   const { contextDispatch } = useContext(Context);
@@ -87,7 +89,7 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex, tasks
   };
 
   const tasks = column.tasksData.map((task, index) => (
-    <Task key={task._id} task={task} index={index} column={column} />
+    <Task key={task._id} task={task} index={index} column={column} files={files[task._id] ? files[task._id] : []} />
   ));
 
   return (

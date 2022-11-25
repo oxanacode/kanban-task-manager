@@ -78,5 +78,12 @@
   "noResults": "Нет результатов",
   "board": "Доска",
   "taskAdded": "Задача добавлена",
-  "searchResults": "Результаты поиска"
+  "searchResults": "Результаты поиска",
+  "addFile": "Добавить файл",
+  "upload": "Загрузить",
+  "dragDrop": "Перетащите изображение сюда",
+  "or": "или",
+  "chooseFile": "Выбрать файл",
+  "fileExtension": "Расширение файла: .jpeg /.jpg /.png",
+  "wrongFileType": "Неверный тип файла"
 }

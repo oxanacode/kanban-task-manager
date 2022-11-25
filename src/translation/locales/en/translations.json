@@ -78,5 +78,12 @@
   "noResults": "No results",
   "board": "Board",
   "taskAdded": "Task added",
-  "searchResults": "Search results"
+  "searchResults": "Search results",
+  "addFile": "Add file",
+  "upload": "Upload",
+  "dragDrop": "Drag & Drop your image here",
+  "or": "or",
+  "chooseFile": "Choose file",
+  "fileExtension": "File extension: .jpeg /.jpg /.png",
+  "wrongFileType": "Wrong file type"
 }

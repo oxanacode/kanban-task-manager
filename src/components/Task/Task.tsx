@@ -1,12 +1,18 @@
 import { Draggable } from '@hello-pangea/dnd';
+import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Card, CardContent, Typography, IconButton, Menu, MenuItem, ListItemDecorator } from '@mui/joy';
 import Box from '@mui/joy/Box';
+import Divider from '@mui/joy/Divider';
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
 import { FC, useContext, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+
+import { FileAttachment } from './FileAttachment';
 
 import { Context } from '../../Context/Context';
 
@@ -14,6 +20,7 @@ import { ReducerTypes } from '../../Context/contextReducer/ReducerTypes';
 
 import { useAppDispatch } from '../../store/hooks';
 import { ColumnType } from '../../store/slices/board/boardApi';
+import { openAddFileModal } from '../../store/slices/files/filesSlice';
 
 import {
   TaskType,
@@ -22,6 +29,7 @@ import {
   useUpdateSetOfTasksMutation,
 } from '../../store/slices/tasks/tasksApi';
 import { openUpdateTaskModal, setDataForUpdateTask } from '../../store/slices/tasks/tasksSlice';
+import { fileType } from '../Board/Columns/Columns';
 
 type TaskPropsType = {
   task: TaskType;
@@ -30,9 +38,10 @@ type TaskPropsType = {
     columnData: ColumnType;
     tasksData: TaskType[];
   };
+  files: fileType[];
 };
 
-export const Task: FC<TaskPropsType> = ({ task, index, column }) => {
+export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -45,7 +54,8 @@ export const Task: FC<TaskPropsType> = ({ task, index, column }) => {
     if (isSuccess) {
       toast.success(t('taskDeleted'));
     }
-  }, [isSuccess, t]);
+    console.log(files);
+  }, [files, isSuccess, t]);
 
   const deleteTaskCb = async () => {
     const { boardId, columnId, _id: taskId, order } = task;
@@ -78,6 +88,10 @@ export const Task: FC<TaskPropsType> = ({ task, index, column }) => {
   };
   const closeMenu = () => {
     setAnchorEl(null);
+  };
+  const onClickAddFile = () => {
+    dispatch(openAddFileModal({ taskId: task._id, boardId: task.boardId }));
+    closeMenu();
   };
 
   return (
@@ -112,6 +126,12 @@ export const Task: FC<TaskPropsType> = ({ task, index, column }) => {
                     </ListItemDecorator>
                     {t('edit')}
                   </MenuItem>
+                  <MenuItem onClick={onClickAddFile}>
+                    <ListItemDecorator sx={{ color: 'inherit' }}>
+                      <AttachFileRoundedIcon />
+                    </ListItemDecorator>
+                    {t('addFile')}
+                  </MenuItem>
                   <MenuItem onClick={onClickDelete} color="danger">
                     <ListItemDecorator sx={{ color: 'inherit' }}>
                       <DeleteIcon />
@@ -123,6 +143,19 @@ export const Task: FC<TaskPropsType> = ({ task, index, column }) => {
               <Box>
                 <Typography>{task.description}</Typography>
               </Box>
+
+              {Boolean(files.length) && (
+                <>
+                  <Divider sx={{ my: 1 }} />
+                  <List sx={{ p: 0 }}>
+                    {files.map((file) => (
+                      <ListItem key={file._id} sx={{ px: 0 }}>
+                        <FileAttachment name={file.name} path={file.path} fileId={file._id} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </>
+              )}
             </CardContent>
           </Card>
         </Box>
