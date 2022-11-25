@@ -1,9 +1,12 @@
 import { Draggable } from '@hello-pangea/dnd';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import HideImageOutlinedIcon from '@mui/icons-material/HideImageOutlined';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import WallpaperOutlinedIcon from '@mui/icons-material/WallpaperOutlined';
 import {
   Card,
   CardContent,
@@ -24,12 +27,15 @@ import { toast } from 'react-toastify';
 
 import { FileAttachment } from './FileAttachment';
 
+import { URL } from '../../constants/URL';
+
 import { Context } from '../../Context/Context';
 
 import { ReducerTypes } from '../../Context/contextReducer/ReducerTypes';
 
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { ColumnType } from '../../store/slices/board/boardApi';
+import { useDeleteFileMutation } from '../../store/slices/files/filesApi';
 import { openAddFileModal } from '../../store/slices/files/filesSlice';
 
 import {
@@ -39,6 +45,7 @@ import {
   useUpdateSetOfTasksMutation,
 } from '../../store/slices/tasks/tasksApi';
 import { openUpdateTaskModal, setDataForUpdateTask } from '../../store/slices/tasks/tasksSlice';
+import { FileFakeId } from '../../types/FileFakeId';
 import { fileType } from '../Board/Columns/Columns';
 
 type TaskPropsType = {
@@ -60,12 +67,13 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
   const [updateSetOfTasks] = useUpdateSetOfTasksMutation();
   const { contextDispatch } = useContext(Context);
   const [expanded, setExpanded] = useState(false);
+  const [deleteFile] = useDeleteFileMutation();
+  const { covers } = useAppSelector((state) => state.files);
 
   useEffect(() => {
     if (isSuccess) {
       toast.success(t('taskDeleted'));
     }
-    console.log(files);
   }, [files, isSuccess, t]);
 
   const deleteTaskCb = async () => {
@@ -104,12 +112,43 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
     dispatch(openAddFileModal({ taskId: task._id, boardId: task.boardId }));
     closeMenu();
   };
+  const onClickAddCover = async () => {
+    if (covers[task._id]) {
+      await deleteFile(covers[task._id].coverId).unwrap();
+    }
+
+    dispatch(openAddFileModal({ taskId: task._id, boardId: FileFakeId.cover }));
+    closeMenu();
+  };
 
   return (
     <Draggable key={task._id} draggableId={task._id} index={index}>
       {(provided) => (
         <Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <Card sx={{ my: 0.5 }}>
+          <Card sx={{ my: 0.5, pt: covers[task._id] ? 18 : 0, position: 'relative' }}>
+            {Boolean(covers[task._id]) && (
+              <Box
+                sx={{
+                  height: 140,
+                  width: '100%',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                }}
+              >
+                <Box
+                  component="img"
+                  src={`${URL}${covers[task._id].path}`}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderTopLeftRadius: 12,
+                    borderTopRightRadius: 12,
+                  }}
+                />
+              </Box>
+            )}
             <CardContent>
               <Box
                 sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
@@ -143,6 +182,29 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                     </ListItemDecorator>
                     {t('addFile')}
                   </MenuItem>
+                  {covers[task._id] ? (
+                    <>
+                      <MenuItem onClick={onClickAddCover}>
+                        <ListItemDecorator sx={{ color: 'inherit' }}>
+                          <WallpaperOutlinedIcon />
+                        </ListItemDecorator>
+                        {t('changeCover')}
+                      </MenuItem>
+                      <MenuItem onClick={onClickAddCover}>
+                        <ListItemDecorator sx={{ color: 'inherit' }}>
+                          <HideImageOutlinedIcon />
+                        </ListItemDecorator>
+                        {t('deleteCover')}
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <MenuItem onClick={onClickAddCover}>
+                      <ListItemDecorator sx={{ color: 'inherit' }}>
+                        <AddPhotoAlternateOutlinedIcon />
+                      </ListItemDecorator>
+                      {t('addCover')}
+                    </MenuItem>
+                  )}
                   <MenuItem onClick={onClickDelete} color="danger">
                     <ListItemDecorator sx={{ color: 'inherit' }}>
                       <DeleteIcon />
