@@ -92,8 +92,6 @@ export const Columns = () => {
         });
       }
 
-      console.log(files);
-
       if (files && files.length) {
         files.forEach((file) => {
           const task = sortedFiles[file.taskId];
@@ -112,8 +110,6 @@ export const Columns = () => {
         });
       }
 
-      console.log('covers', covers);
-      console.log('SoCovers', sortedCovers);
       dispatch(setCovers(sortedCovers));
 
       setFilesToRender(sortedFiles);
