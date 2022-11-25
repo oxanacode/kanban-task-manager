@@ -112,20 +112,30 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
     dispatch(openAddFileModal({ taskId: task._id, boardId: task.boardId }));
     closeMenu();
   };
-  const onClickAddCover = async () => {
+  const handleDeleteFile = async () => {
+    await deleteFile(covers[task._id].coverId).unwrap();
+  };
+  const onClickAddCover = () => {
     if (covers[task._id]) {
-      await deleteFile(covers[task._id].coverId).unwrap();
+      handleDeleteFile();
     }
 
     dispatch(openAddFileModal({ taskId: task._id, boardId: FileFakeId.cover }));
     closeMenu();
+  };
+  const onClickDeleteCover = () => {
+    closeMenu();
+    contextDispatch({
+      type: ReducerTypes.cb,
+      payload: () => handleDeleteFile(),
+    });
   };
 
   return (
     <Draggable key={task._id} draggableId={task._id} index={index}>
       {(provided) => (
         <Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <Card sx={{ my: 0.5, pt: covers[task._id] ? 18 : 0, position: 'relative' }}>
+          <Card sx={{ my: 0.5, pt: covers[task._id] ? 18 : 2, position: 'relative' }}>
             {Boolean(covers[task._id]) && (
               <Box
                 sx={{
@@ -190,7 +200,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                         </ListItemDecorator>
                         {t('changeCover')}
                       </MenuItem>
-                      <MenuItem onClick={onClickAddCover}>
+                      <MenuItem onClick={onClickDeleteCover}>
                         <ListItemDecorator sx={{ color: 'inherit' }}>
                           <HideImageOutlinedIcon />
                         </ListItemDecorator>

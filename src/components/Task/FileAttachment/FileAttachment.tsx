@@ -25,8 +25,8 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
   const [openImage, setOpenImage] = useState(false);
   const { contextDispatch } = useContext(Context);
 
-  const handleDeleteFile = () => {
-    deleteFile(fileId).unwrap;
+  const handleDeleteFile = async () => {
+    await deleteFile(fileId).unwrap();
   };
 
   const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
