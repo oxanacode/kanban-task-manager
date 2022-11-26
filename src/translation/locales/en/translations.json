@@ -87,5 +87,8 @@
   "or": "or",
   "chooseFile": "Choose file",
   "fileExtension": "File extension: .jpeg /.jpg /.png",
-  "wrongFileType": "Wrong file type"
+  "wrongFileType": "Wrong file type",
+  "addCover": "Add cover",
+  "changeCover": "Change cover",
+  "deleteCover": "Delete cover"
 }

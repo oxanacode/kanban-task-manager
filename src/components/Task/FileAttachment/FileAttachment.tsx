@@ -25,8 +25,8 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
   const [openImage, setOpenImage] = useState(false);
   const { contextDispatch } = useContext(Context);
 
-  const handleDeleteFile = () => {
-    deleteFile(fileId).unwrap;
+  const handleDeleteFile = async () => {
+    await deleteFile(fileId).unwrap();
   };
 
   const handleDeleteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -69,7 +69,7 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
           <IconButton sx={{ position: 'absolute', right: -16, top: -16 }} onClick={() => setOpenImage(false)}>
             <CloseRoundedIcon />
           </IconButton>
-          <Box component="img" sx={{ width: '100%' }} src={`${URL}/${path}`} />
+          <Box component="img" sx={{ width: '100%' }} src={`${URL}${path}`} />
         </ModalDialog>
       </Modal>
     </>

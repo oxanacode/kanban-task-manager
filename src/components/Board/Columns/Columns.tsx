@@ -17,12 +17,14 @@ import {
 } from '../../../store/slices/board/boardApi';
 import { openAddColumnModal, setColumnsLength } from '../../../store/slices/board/boardSlice';
 import { useGetFilesByBoardIdQuery } from '../../../store/slices/files/filesApi';
+import { CoversType, setCovers } from '../../../store/slices/files/filesSlice';
 import {
   TaskType,
   UpdateSetOfTaskType,
   useGetTasksByBoardIdQuery,
   useUpdateSetOfTasksMutation,
 } from '../../../store/slices/tasks/tasksApi';
+import { FileFakeId } from '../../../types/FileFakeId';
 import { changeColumnsOrder, changeColumnsTasksOrder, changeTasksOrder } from '../../../utils/changeDataOrder';
 import { Column } from '../Column';
 
@@ -51,6 +53,11 @@ export const Columns = () => {
   const { data: columns, isError: isColumnsError, isLoading: isColumnsLoading } = useGetColumnsInBoardQuery(id || '');
   const { data: files, isError: isFilesError, isLoading: isFilesLoading } = useGetFilesByBoardIdQuery(id || '');
   const {
+    data: covers,
+    isError: isCoversError,
+    isLoading: isCoversLoading,
+  } = useGetFilesByBoardIdQuery(FileFakeId.cover);
+  const {
     data: tasks,
     isError: isTasksError,
     refetch: tasksRefetch,
@@ -63,12 +70,13 @@ export const Columns = () => {
   const [filesToRender, setFilesToRender] = useState<fileToRenderType>({});
 
   useEffect(() => {
-    if (isColumnsError || isTasksError || isFilesError) {
+    if (isColumnsError || isTasksError || isFilesError || isCoversError) {
       toast.error('Error');
     } else if (columns) {
       const sortedColumns = [...columns].sort((a, b) => a.order - b.order);
       const dataToRender: columnToRenderType = {};
       const sortedFiles: fileToRenderType = {};
+      const sortedCovers: CoversType = {};
 
       sortedColumns.forEach((column) => {
         dataToRender[column._id] = { columnData: column, tasksData: [] };
@@ -96,13 +104,18 @@ export const Columns = () => {
         });
       }
 
-      console.log(files);
-      console.log(sortedFiles);
+      if (covers && covers.length) {
+        covers.forEach((cover) => {
+          sortedCovers[cover.taskId] = { path: cover.path, coverId: cover._id };
+        });
+      }
+
+      dispatch(setCovers(sortedCovers));
 
       setFilesToRender(sortedFiles);
       setColumnsToRender(dataToRender);
     }
-  }, [columns, files, isColumnsError, isFilesError, isTasksError, tasks]);
+  }, [columns, covers, dispatch, files, isColumnsError, isCoversError, isFilesError, isTasksError, tasks]);
 
   const handleClick = () => {
     dispatch(openAddColumnModal());
@@ -188,7 +201,7 @@ export const Columns = () => {
 
   return (
     <>
-      {isColumnsLoading || isTasksLoading || isFilesLoading ? (
+      {isColumnsLoading || isTasksLoading || isFilesLoading || isCoversLoading ? (
         <CircularProgress sx={{ mx: 'auto', mt: 10 }} />
       ) : (
         <Box sx={{ flexGrow: 1, position: 'relative' }}>
