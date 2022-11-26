@@ -23,11 +23,11 @@ export const DialogConfirm = () => {
   const onClick = async () => {
     if (contextState.cb) {
       setIsLoading(true);
+
       try {
         await contextState.cb();
-        // setIsLoading(false);
+        setIsLoading(false);
       } catch (error) {
-        console.log(error);
         setIsLoading(false);
       }
 
