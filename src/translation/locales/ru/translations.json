@@ -87,5 +87,8 @@
   "or": "или",
   "chooseFile": "Выбрать файл",
   "fileExtension": "Расширение файла: .jpeg /.jpg /.png",
-  "wrongFileType": "Неверный тип файла"
+  "wrongFileType": "Неверный тип файла",
+  "addCover": "Добавить обложку",
+  "changeCover": "Поменять обложку",
+  "deleteCover": "Удалить обложку"
 }
