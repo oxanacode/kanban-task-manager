@@ -28,21 +28,22 @@ export const AddColumnModal = () => {
   const [createColumn, { isSuccess, isLoading }] = useCreateColumnMutation();
 
   const handleClose = useCallback(() => {
+    reset();
     dispatch(closeAddColumnModal());
     setModalStatus(false);
-    reset();
   }, [dispatch, reset]);
 
   useEffect(() => {
+    reset();
     setModalStatus(isModalOpened);
-  }, [isModalOpened]);
+  }, [isModalOpened, reset]);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success('columnAdded');
+      toast.success(t('columnCreated'));
       handleClose();
     }
-  }, [isSuccess, handleClose]);
+  }, [isSuccess, handleClose, t]);
 
   const onSubmit: SubmitHandler<AddColumnFormType> = async (formData: AddColumnFormType) => {
     const body = {
