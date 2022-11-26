@@ -18,6 +18,7 @@ import {
   ListItemDecorator,
 } from '@mui/joy';
 import Box from '@mui/joy/Box';
+import Divider from '@mui/joy/Divider';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
 import Collapse from '@mui/material/Collapse';
@@ -241,18 +242,27 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                 <Typography>{task.description}</Typography>
               </Box>
 
-              <Points taskId={task._id} boardId={task.boardId} show={isPoints} isShow={setIsPoints} />
-
-              {Boolean(files.length) && (
+              {(Boolean(files.length) || isPoints) && (
                 <>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                    <Typography
-                      variant="soft"
-                      sx={{ pr: 1, m: 0, height: 24 }}
-                      startDecorator={<AttachFileRoundedIcon sx={{ fontSize: 16 }} />}
-                    >
-                      {files.length}
-                    </Typography>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 1 }}>
+                    {Boolean(files.length) && (
+                      <Typography
+                        variant="soft"
+                        sx={{ pr: 1, m: 0, height: 24 }}
+                        startDecorator={<AttachFileRoundedIcon sx={{ fontSize: 16 }} />}
+                      >
+                        {files.length}
+                      </Typography>
+                    )}
+                    {isPoints && (
+                      <Typography
+                        variant="soft"
+                        sx={{ pr: 1, m: 0, height: 24 }}
+                        startDecorator={<FormatListBulletedRoundedIcon sx={{ fontSize: 16 }} />}
+                      >
+                        {t('addCheckList')}
+                      </Typography>
+                    )}
                     <IconButton
                       onClick={() => setExpanded(!expanded)}
                       aria-expanded={expanded}
@@ -263,13 +273,19 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                     </IconButton>
                   </Box>
                   <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <List sx={{ p: 0 }}>
-                      {files.map((file) => (
-                        <ListItem key={file._id} sx={{ px: 0 }}>
-                          <FileAttachment name={file.name} path={file.path} fileId={file._id} />
-                        </ListItem>
-                      ))}
-                    </List>
+                    <Points taskId={task._id} boardId={task.boardId} show={isPoints} isShow={setIsPoints} />
+                    {Boolean(files.length) && (
+                      <>
+                        <Divider sx={{ mb: 1 }} />
+                        <List sx={{ p: 0 }}>
+                          {files.map((file) => (
+                            <ListItem key={file._id} sx={{ px: 0 }}>
+                              <FileAttachment name={file.name} path={file.path} fileId={file._id} />
+                            </ListItem>
+                          ))}
+                        </List>
+                      </>
+                    )}
                   </Collapse>
                 </>
               )}
