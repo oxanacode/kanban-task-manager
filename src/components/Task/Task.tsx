@@ -4,6 +4,7 @@ import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded';
 import DeleteIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded';
 import HideImageOutlinedIcon from '@mui/icons-material/HideImageOutlined';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import WallpaperOutlinedIcon from '@mui/icons-material/WallpaperOutlined';
@@ -47,6 +48,7 @@ import {
 import { openUpdateTaskModal, setDataForUpdateTask } from '../../store/slices/tasks/tasksSlice';
 import { FileFakeId } from '../../types/FileFakeId';
 import { fileType } from '../Board/Columns/Columns';
+import { Points } from '../Points/Points';
 
 type TaskPropsType = {
   task: TaskType;
@@ -62,6 +64,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [isPoints, setIsPoints] = useState(false);
   const isOpen = Boolean(anchorEl);
   const [deleteTask, { isSuccess }] = useDeleteTaskMutation();
   const [updateSetOfTasks] = useUpdateSetOfTasksMutation();
@@ -108,6 +111,11 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
   const closeMenu = () => {
     setAnchorEl(null);
   };
+  const onClickAddPoints = () => {
+    setIsPoints(true);
+    closeMenu();
+  };
+
   const onClickAddFile = () => {
     dispatch(openAddFileModal({ taskId: task._id, boardId: task.boardId }));
     closeMenu();
@@ -186,6 +194,12 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
                     </ListItemDecorator>
                     {t('edit')}
                   </MenuItem>
+                  <MenuItem onClick={onClickAddPoints}>
+                    <ListItemDecorator sx={{ color: 'inherit' }}>
+                      <FormatListBulletedRoundedIcon />
+                    </ListItemDecorator>
+                    {t('addCheckList')}
+                  </MenuItem>
                   <MenuItem onClick={onClickAddFile}>
                     <ListItemDecorator sx={{ color: 'inherit' }}>
                       <AttachFileRoundedIcon />
@@ -226,6 +240,9 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files }) => {
               <Box>
                 <Typography>{task.description}</Typography>
               </Box>
+
+              <Points taskId={task._id} boardId={task.boardId} show={isPoints} isShow={setIsPoints} />
+
               {Boolean(files.length) && (
                 <>
                   <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
