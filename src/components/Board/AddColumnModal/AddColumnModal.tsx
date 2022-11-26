@@ -4,7 +4,7 @@ import ModalDialog from '@mui/joy/ModalDialog';
 import Stack from '@mui/joy/Stack';
 import TextField from '@mui/joy/TextField';
 import Typography from '@mui/joy/Typography';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -25,17 +25,24 @@ export const AddColumnModal = () => {
   const { isModalOpened, columnsLength } = useAppSelector((state) => state.board);
   const { id } = useParams();
   const [modalStatus, setModalStatus] = useState(false);
-  const [createColumn, { isError }] = useCreateColumnMutation();
+  const [createColumn, { isSuccess, isLoading }] = useCreateColumnMutation();
+
+  const handleClose = useCallback(() => {
+    dispatch(closeAddColumnModal());
+    setModalStatus(false);
+    reset();
+  }, [dispatch, reset]);
 
   useEffect(() => {
     setModalStatus(isModalOpened);
   }, [isModalOpened]);
 
-  const handleClose = () => {
-    dispatch(closeAddColumnModal());
-    setModalStatus(false);
-    reset();
-  };
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('columnAdded');
+      handleClose();
+    }
+  }, [isSuccess, handleClose]);
 
   const onSubmit: SubmitHandler<AddColumnFormType> = async (formData: AddColumnFormType) => {
     const body = {
@@ -43,14 +50,8 @@ export const AddColumnModal = () => {
       order: columnsLength,
     };
 
-    handleClose();
-
     if (id) {
       await createColumn({ id, body }).unwrap();
-
-      if (isError) {
-        toast.error('Error');
-      }
     }
   };
 
@@ -77,7 +78,9 @@ export const AddColumnModal = () => {
               rules={{ required: 'Field is require' }}
               render={({ field }) => <TextField {...field} label={t('title')} autoFocus required />}
             />
-            <Button type="submit">{t('addColumn')}</Button>
+            <Button type="submit" loading={isLoading}>
+              {t('addColumn')}
+            </Button>
           </Stack>
         </form>
       </ModalDialog>
