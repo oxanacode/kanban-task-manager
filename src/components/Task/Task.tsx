@@ -109,7 +109,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
     closeMenu();
   };
   const onClickDelete = () => {
-    contextDispatch({ type: ReducerTypes.cb, payload: deleteTaskCb });
+    contextDispatch({ type: ReducerTypes.onConfirmAction, payload: deleteTaskCb });
     closeMenu();
   };
   const closeMenu = () => {
@@ -154,7 +154,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
   const onClickDeleteCover = () => {
     closeMenu();
     contextDispatch({
-      type: ReducerTypes.cb,
+      type: ReducerTypes.onConfirmAction,
       payload: () => handleDeleteFile(),
     });
   };
