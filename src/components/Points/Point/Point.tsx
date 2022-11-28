@@ -49,7 +49,7 @@ export const Point = ({ point }: IProps) => {
         onChange={togglePoint}
         size="sm"
         checked={isChecked}
-        sx={{ textDecoration: isChecked ? 'line-through' : 'none' }}
+        sx={{ textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'lightgrey' : 'inherit' }}
       />
 
       <IconButton

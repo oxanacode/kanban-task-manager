@@ -117,7 +117,6 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
   };
 
   const onClickAddPoints = () => {
-    console.log('task add');
     setIsPoints(true);
     closeMenu();
   };
@@ -218,12 +217,14 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
                     {t('edit')}
                   </MenuItem>
 
-                  <MenuItem onClick={onClickAddPoints} disabled={isPoints || Boolean(points.length)}>
-                    <ListItemDecorator sx={{ color: 'inherit' }}>
-                      <FormatListBulletedRoundedIcon />
-                    </ListItemDecorator>
-                    {t('addCheckList')}
-                  </MenuItem>
+                  {!(isPoints || Boolean(points.length)) && (
+                    <MenuItem onClick={onClickAddPoints}>
+                      <ListItemDecorator sx={{ color: 'inherit' }}>
+                        <FormatListBulletedRoundedIcon />
+                      </ListItemDecorator>
+                      {t('addCheckList')}
+                    </MenuItem>
+                  )}
 
                   <MenuItem onClick={onClickAddFile}>
                     <ListItemDecorator sx={{ color: 'inherit' }}>
@@ -278,7 +279,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
                         {files.length}
                       </Typography>
                     )}
-                    {Boolean(points.length) && (
+                    {(Boolean(points.length) || isPoints) && (
                       <Typography
                         variant="soft"
                         sx={{ pr: 1, m: 0, height: 24 }}

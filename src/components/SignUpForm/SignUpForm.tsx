@@ -5,21 +5,25 @@ import Button from '@mui/joy/Button';
 
 import TextField from '@mui/joy/TextField';
 import Typography from '@mui/joy/Typography';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { errorHandler } from './errorHandler';
+import { AvatarModal } from './Avatar/AvatarModal';
 
 import { ROUTES } from '../../constants/routes';
+import { URL as serverURL } from '../../constants/URL';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useUploadFileMutation } from '../../store/slices/files/filesApi';
 import { useCreateUserMutation, useLogInUserMutation } from '../../store/slices/user/authApi';
-import { setIsUserLogIn, setToken, setUserInfo } from '../../store/slices/user/userSlice';
+import { setAvatar, setAvatarInfo, setIsUserLogIn, setToken, setUserInfo } from '../../store/slices/user/userSlice';
+import { errorHandler } from '../../utils/errorHandler';
+import { getFormData } from '../../utils/getFormData';
 
-interface IFormInput {
+export interface IFormInput {
   name: string;
   login: string;
   password: string;
@@ -36,11 +40,14 @@ export interface IRegError {
 
 export const SignUpForm = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const { isUserLogIn } = useAppSelector((state) => state.user);
 
   const { t } = useTranslation();
   const [createUser, { isLoading: createUserLoading }] = useCreateUserMutation();
   const [logInUser, { isLoading: ligInUserLoading }] = useLogInUserMutation();
+  const [uploadFile, { isLoading: avatarLoading }] = useUploadFileMutation();
+  const [file, setFile] = useState<File | null>(null);
   const {
     control,
     handleSubmit,
@@ -49,7 +56,17 @@ export const SignUpForm = () => {
     mode: 'onChange',
   });
 
-  const dispatch = useAppDispatch();
+  const uploadAvatar = async (login: string) => {
+    if (file) {
+      uploadFile(getFormData(login, file))
+        .unwrap()
+        .then((data) => {
+          dispatch(setAvatarInfo(data));
+          dispatch(setAvatar(`${serverURL}${data.path}`));
+        })
+        .catch(() => toast.error(t('serverError')));
+    }
+  };
 
   const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
     const { passwordConfirm, ...restData } = data;
@@ -74,6 +91,9 @@ export const SignUpForm = () => {
       }
 
       dispatch(setToken(token));
+
+      await uploadAvatar(restData.login);
+
       dispatch(setIsUserLogIn(true));
 
       navigate(ROUTES.MAIN.path);
@@ -87,6 +107,12 @@ export const SignUpForm = () => {
       navigate(ROUTES.MAIN.path);
     }
   }, [isUserLogIn, navigate]);
+
+  useEffect(() => {
+    if (file) {
+      dispatch(setAvatar(URL.createObjectURL(file)));
+    }
+  }, [dispatch, file]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} autoComplete="false">
@@ -209,7 +235,12 @@ export const SignUpForm = () => {
           {errors.passwordConfirm.message}
         </Typography>
       )}
-      <Button type="submit" loading={createUserLoading || ligInUserLoading} sx={{ mt: 1, width: '100%' }}>
+      <AvatarModal setFile={setFile} />
+      <Button
+        type="submit"
+        loading={createUserLoading || ligInUserLoading || avatarLoading}
+        sx={{ mt: 1, width: '100%' }}
+      >
         {t('signUp')}
       </Button>
     </form>

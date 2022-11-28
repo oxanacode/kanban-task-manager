@@ -5,6 +5,7 @@ import { getLoginState } from '../../../utils/getLoginState';
 import { getValueLocalStorage } from '../../../utils/getValueLocalStorage';
 import { removeValueLocalStorage } from '../../../utils/removeValueLocalStorage';
 import { setValueLocalStorage } from '../../../utils/setValueLocalStorage';
+import { FileType } from '../files/filesApi';
 
 export const errorPlug = 9999;
 export interface IUserInfo {
@@ -22,6 +23,9 @@ export interface IInitialState {
   logInErrorCode: number;
   registrationErrorCode: number;
   updateError: number;
+  avatar: string;
+  isAvatarModal: boolean;
+  avatarInfo: FileType | null;
 }
 
 const initialState: IInitialState = {
@@ -33,12 +37,29 @@ const initialState: IInitialState = {
   isUserLogIn: getLoginState(),
   registrationErrorCode: 0,
   updateError: 0,
+  avatar: '',
+  isAvatarModal: false,
+  avatarInfo: null,
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setAvatar(state, { payload }) {
+      state.avatar = payload;
+    },
+    setAvatarInfo(state, { payload }) {
+      console.log('avatar info', payload);
+
+      if (payload) {
+        state.avatarInfo = payload;
+        state.avatar = `${URL}${payload.path}`;
+      }
+    },
+    toggleAvatarModal(state, { payload }) {
+      state.isAvatarModal = payload;
+    },
     userLogOut(state) {
       removeValueLocalStorage(LocalStorageKeys.token);
       removeValueLocalStorage(LocalStorageKeys.userId);
@@ -47,6 +68,8 @@ const userSlice = createSlice({
       state.login = '';
       state.token = '';
       state.isUserLogIn = false;
+      state.avatar = '';
+      state.avatarInfo = null;
     },
 
     setUserInfo(state, { payload }) {
@@ -80,6 +103,16 @@ const userSlice = createSlice({
   },
 });
 
-export const { setId, setLogin, userLogOut, setIsUserLogIn, setUserInfo, setToken, setLogInErrorCode } =
-  userSlice.actions;
+export const {
+  setId,
+  setLogin,
+  userLogOut,
+  setIsUserLogIn,
+  setUserInfo,
+  setToken,
+  setLogInErrorCode,
+  setAvatar,
+  toggleAvatarModal,
+  setAvatarInfo,
+} = userSlice.actions;
 export default userSlice.reducer;

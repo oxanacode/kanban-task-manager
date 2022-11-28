@@ -1,36 +1,74 @@
-import { Box, Button, Divider, Sheet, Typography } from '@mui/joy';
+import { Box, Button, CircularProgress, Divider, Sheet, Typography } from '@mui/joy';
 import Avatar from '@mui/joy/Avatar';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { Counter } from './Counter/Counter';
 
 import { DialogEditProfile } from './DialogEditProfile/DialogEditProfile';
+import styles from './UserInfo.module.css';
 import { UserInfoFields } from './UserInfoFields/UserInfoFields';
 
-import img from '../../../assets/images/avatar.jpg';
+import { ROUTES } from '../../../constants/routes';
+import { URL } from '../../../constants/URL';
 import { Context } from '../../../Context/Context';
 import { ReducerTypes } from '../../../Context/contextReducer/ReducerTypes';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { userLogOut } from '../../../store/slices/user/userSlice';
+import { useDeleteFileMutation, useUploadFileMutation } from '../../../store/slices/files/filesApi';
+import { setAvatar, setAvatarInfo, toggleAvatarModal, userLogOut } from '../../../store/slices/user/userSlice';
 import { useDeleteUserMutation } from '../../../store/slices/users/usersApi';
+import { getFormData } from '../../../utils/getFormData';
+import { AvatarModal } from '../../SignUpForm/Avatar/AvatarModal';
 
 export const UserInfo = () => {
+  const navigate = useNavigate();
   const { contextDispatch } = useContext(Context);
   const dispatch = useAppDispatch();
   const [isEditOpen, setIsEditOpen] = useState(false);
-  const { login, id } = useAppSelector((state) => state.user);
+  const { login, id, avatar, avatarInfo } = useAppSelector((state) => state.user);
   const { t } = useTranslation();
   const [deleteUser] = useDeleteUserMutation();
+  const [delFile] = useDeleteFileMutation();
+  const [uploadFile, { isLoading }] = useUploadFileMutation();
+  const [file, setFile] = useState<null | File>(null);
+  const prevFile = useRef<null | File>(null);
 
   const delUser = async () => {
     deleteUser(id)
       .unwrap()
-      .then(() => dispatch(userLogOut()))
+      .then(async () => {
+        navigate(ROUTES.WELCOME.path);
+        setTimeout(() => dispatch(userLogOut()), 0);
+      })
       .catch(() => toast.error(t('serverError')));
+    if (avatarInfo) {
+      delFile(avatarInfo._id).catch(() => {});
+    }
   };
+
+  const changeAvatar = useCallback(() => {
+    if (avatarInfo) {
+      delFile(avatarInfo._id).catch(() => {});
+    }
+
+    uploadFile(getFormData(login, file!, avatarInfo))
+      .unwrap()
+      .then((data) => {
+        dispatch(setAvatarInfo(data));
+        dispatch(setAvatar(`${URL}${data.path}`));
+      })
+      .catch(() => toast.error(t('serverError')));
+  }, [avatarInfo, delFile, dispatch, file, login, t, uploadFile]);
+
+  useEffect(() => {
+    if (file && file !== prevFile.current) {
+      prevFile.current = file;
+      changeAvatar();
+    }
+  }, [changeAvatar, file]);
 
   return (
     <Sheet
@@ -70,16 +108,32 @@ export const UserInfo = () => {
             alignItems: 'center',
             width: '100%',
             flex: 1,
+            position: 'relativ',
           }}
         >
-          <Avatar
-            alt={login}
-            src={img}
+          <Box
             sx={{
-              height: '200px',
-              width: '200px',
+              position: 'relative',
             }}
-          />
+          >
+            <Avatar
+              className={styles.avatar}
+              alt={login}
+              src={avatar}
+              sx={{
+                height: '200px',
+                width: '200px',
+                cursor: 'pointer',
+                pointerEvents: isLoading ? 'none' : 'inherit',
+              }}
+              onClick={() => dispatch(toggleAvatarModal(true))}
+            />
+            {isLoading && (
+              <CircularProgress
+                sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+              />
+            )}
+          </Box>
         </Box>
         <Box
           sx={{
@@ -123,6 +177,7 @@ export const UserInfo = () => {
         <Counter />
       </Box>
       <DialogEditProfile openDialog={setIsEditOpen} isDialogOpen={isEditOpen} />
+      <AvatarModal setFile={setFile} />
     </Sheet>
   );
 };
