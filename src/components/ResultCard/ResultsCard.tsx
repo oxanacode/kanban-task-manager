@@ -4,9 +4,14 @@ import Typography from '@mui/joy/Typography';
 
 import { FC } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import styles from './ResultCard.module.css';
 
+import { ROUTES } from '../../constants/routes';
+import { useAppDispatch } from '../../store/hooks';
 import { TaskType } from '../../store/slices/tasks/tasksApi';
+import { setSearchQuery } from '../../store/slices/tasks/tasksSlice';
 
 type ResultCardPropsType = {
   task: TaskType;
@@ -15,23 +20,31 @@ type ResultCardPropsType = {
 };
 
 export const ResultCard: FC<ResultCardPropsType> = ({ task, boardTitle, columnTitle }) => {
+  const dispatch = useAppDispatch();
+
+  const onClick = () => {
+    dispatch(setSearchQuery(''));
+  };
+
   return (
-    <Card
-      variant="outlined"
-      sx={{
-        width: '100%',
-      }}
-    >
-      <CardContent>
-        <Typography level="h2" fontSize="lg">
-          {task.title}
-        </Typography>
-        <Typography className={styles.overflow} sx={{ display: '-webkit-box' }}>
-          {task.description}
-        </Typography>
-        <Typography level="body3">Board: {boardTitle}</Typography>
-        <Typography level="body3">Column: {columnTitle}</Typography>
-      </CardContent>
-    </Card>
+    <Link to={`${ROUTES.BOARD.path}/${task.boardId}`} style={{ textDecoration: 'none' }} onClick={onClick}>
+      <Card
+        variant="outlined"
+        sx={{
+          width: '100%',
+        }}
+      >
+        <CardContent>
+          <Typography level="h2" fontSize="lg">
+            {task.title}
+          </Typography>
+          <Typography className={styles.overflow} sx={{ display: '-webkit-box' }}>
+            {task.description}
+          </Typography>
+          <Typography level="body3">Board: {boardTitle}</Typography>
+          <Typography level="body3">Column: {columnTitle}</Typography>
+        </CardContent>
+      </Card>
+    </Link>
   );
 };
