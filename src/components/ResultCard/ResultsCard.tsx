@@ -4,6 +4,7 @@ import Typography from '@mui/joy/Typography';
 
 import { FC } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import styles from './ResultCard.module.css';
@@ -20,6 +21,7 @@ type ResultCardPropsType = {
 };
 
 export const ResultCard: FC<ResultCardPropsType> = ({ task, boardTitle, columnTitle }) => {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const onClick = () => {
@@ -41,8 +43,8 @@ export const ResultCard: FC<ResultCardPropsType> = ({ task, boardTitle, columnTi
           <Typography className={styles.overflow} sx={{ display: '-webkit-box' }}>
             {task.description}
           </Typography>
-          <Typography level="body3">Board: {boardTitle}</Typography>
-          <Typography level="body3">Column: {columnTitle}</Typography>
+          <Typography level="body3">{`${t('board')}: ${boardTitle}`}</Typography>
+          <Typography level="body3">{`${t('column')}: ${columnTitle}`}</Typography>
         </CardContent>
       </Card>
     </Link>
