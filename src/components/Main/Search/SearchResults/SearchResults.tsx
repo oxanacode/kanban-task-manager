@@ -54,7 +54,11 @@ export const SearchResults = () => {
         });
         setResults(result);
       } else {
-        const noResults = <Typography>{t('noResults')}</Typography>;
+        const noResults = (
+          <Typography level="h2" fontSize="lg">
+            {t('noResults')}
+          </Typography>
+        );
         setResults(noResults);
       }
     }
