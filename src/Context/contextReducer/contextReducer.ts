@@ -7,7 +7,7 @@ export const contextReducer = (state: IReducerState, action: Action) => {
   switch (action.type) {
     case ReducerTypes.onConfirmAction:
       return {
-        cb: action.payload,
+        onConfirmAction: action.payload,
       };
     case ReducerTypes.null:
       return initialReducerState;

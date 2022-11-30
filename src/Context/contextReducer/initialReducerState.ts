@@ -1,3 +1,3 @@
 export const initialReducerState = {
-  cb: null,
+  onConfirmAction: null,
 };
