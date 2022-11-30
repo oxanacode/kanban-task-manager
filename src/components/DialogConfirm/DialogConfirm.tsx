@@ -21,11 +21,11 @@ export const DialogConfirm = () => {
   };
 
   const onClick = async () => {
-    if (contextState.cb) {
+    if (contextState.onConfirmAction) {
       setIsLoading(true);
 
       try {
-        await contextState.cb();
+        await contextState.onConfirmAction();
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -40,7 +40,7 @@ export const DialogConfirm = () => {
       <Modal
         aria-labelledby="alert-dialog-modal-title"
         aria-describedby="alert-dialog-modal-description"
-        open={typeof contextState.cb === 'function'}
+        open={typeof contextState.onConfirmAction === 'function'}
         onClose={onClose}
       >
         <ModalDialog variant="outlined" role="alertdialog">
