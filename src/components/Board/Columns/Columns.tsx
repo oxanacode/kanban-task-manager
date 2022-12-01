@@ -74,12 +74,16 @@ export const Columns = () => {
   const [pointsToRender, setPointsToRender] = useState<IPointsResponse[]>(points || []);
 
   useEffect(() => {
-    if (points) setPointsToRender(points);
-  }, [points]);
+    if (isPointsError) {
+      toast.error(t('serverError'));
+    } else if (points) {
+      setPointsToRender(points);
+    }
+  }, [isPointsError, points, t]);
 
   useEffect(() => {
-    if (isColumnsError || isTasksError || isFilesError || isCoversError || isPointsError) {
-      toast.error('Error');
+    if (isColumnsError || isTasksError || isFilesError || isCoversError) {
+      toast.error(t('serverError'));
     } else if (columns) {
       const sortedColumns = [...columns].sort((a, b) => a.order - b.order);
       const dataToRender: columnToRenderType = {};
@@ -123,18 +127,7 @@ export const Columns = () => {
       setFilesToRender(sortedFiles);
       setColumnsToRender(dataToRender);
     }
-  }, [
-    columns,
-    covers,
-    dispatch,
-    files,
-    isColumnsError,
-    isCoversError,
-    isFilesError,
-    isTasksError,
-    isPointsError,
-    tasks,
-  ]);
+  }, [columns, covers, dispatch, files, isColumnsError, isCoversError, isFilesError, isTasksError, tasks, t]);
 
   const handleClick = () => {
     dispatch(openAddColumnModal());
@@ -156,7 +149,9 @@ export const Columns = () => {
       const { columnsToUpdate, dataToRender } = changeColumnsOrder(columnsToRender, source.index, destination.index);
 
       setColumnsToRender(dataToRender);
-      await updateSetOfColumns(columnsToUpdate).unwrap();
+      await updateSetOfColumns(columnsToUpdate)
+        .unwrap()
+        .catch(() => toast.error(t('serverError')));
 
       return;
     }
@@ -178,7 +173,9 @@ export const Columns = () => {
         return data;
       });
 
-      await updateSetOfTasks(setOfTasks).unwrap();
+      await updateSetOfTasks(setOfTasks)
+        .unwrap()
+        .catch(() => toast.error(t('serverError')));
 
       return;
     }
@@ -201,7 +198,9 @@ export const Columns = () => {
 
       const setOfTasks: UpdateSetOfTaskType = [...startSetOfTasks, ...finishSetOfTasks];
 
-      await updateSetOfTasks(setOfTasks).unwrap();
+      await updateSetOfTasks(setOfTasks)
+        .unwrap()
+        .catch(() => toast.error(t('serverError')));
 
       return;
     }
