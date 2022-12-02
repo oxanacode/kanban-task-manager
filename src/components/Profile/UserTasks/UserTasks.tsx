@@ -13,9 +13,9 @@ type Names = Record<string, string>;
 export const UserTasks = () => {
   const { t } = useTranslation();
   const { id } = useAppSelector((state) => state.user);
-  const { data } = useGetTasksByUserIdQuery(id);
-  const { data: userBoards } = useGetBoardsByUserIdQuery(id);
-  const { data: userColumns } = useGetColumnsByUserIdQuery(id);
+  const { data } = useGetTasksByUserIdQuery(id, { refetchOnMountOrArgChange: true });
+  const { data: userBoards } = useGetBoardsByUserIdQuery(id, { refetchOnMountOrArgChange: true });
+  const { data: userColumns } = useGetColumnsByUserIdQuery(id, { refetchOnMountOrArgChange: true });
 
   const [boards, setBoards] = useState<Names | null>(null);
   const [columns, setColumns] = useState<Names | null>(null);
