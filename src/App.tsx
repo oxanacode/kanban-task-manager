@@ -15,7 +15,7 @@ function App() {
   useLogOutAfterTokenExp();
 
   return (
-    <CssVarsProvider theme={theme} defaultMode="system">
+    <CssVarsProvider theme={theme}>
       <CssBaseline>
         <RoutesWrapper />
         <ToastContainer position="bottom-left" theme="colored" />
