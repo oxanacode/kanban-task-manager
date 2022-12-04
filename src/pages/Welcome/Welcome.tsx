@@ -9,7 +9,7 @@ import { PromoSection } from '../../components/Welcome/PromoSection';
 
 export const Welcome = () => {
   return (
-    <Sheet variant="plain">
+    <Sheet variant="plain" sx={{ mb: 6 }}>
       <PromoSection />
       <Box
         sx={{

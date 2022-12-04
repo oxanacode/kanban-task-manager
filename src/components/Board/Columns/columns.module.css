@@ -1,5 +1,5 @@
 .list::-webkit-scrollbar {
-  height: 8px;
+  height: 10px;
 }
 
 .list::-webkit-scrollbar-track {

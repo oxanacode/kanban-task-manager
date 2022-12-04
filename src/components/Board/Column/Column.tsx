@@ -143,7 +143,7 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex, tasks
                 <Typography
                   component="h3"
                   level="h6"
-                  sx={{ width: '100%', pl: 2 }}
+                  sx={{ width: 224, pl: 2, wordBreak: 'break-word' }}
                   onClick={(e: React.SyntheticEvent) => {
                     e.stopPropagation();
                     dispatch(setTitleEditId(columnId));

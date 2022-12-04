@@ -84,7 +84,7 @@ export const SignInForm = () => {
             message: t('fieldIsRequire'),
           },
           pattern: {
-            value: /^[a-zA-Z0-9]{2,10}$/,
+            value: /^[a-zA-Z0-9]{2,15}$/,
             message: t('wrongFormat'),
           },
         }}

@@ -54,10 +54,14 @@ export const BoardCard: FC<BoardCardPropsType> = ({ board }) => {
     <Link to={`${ROUTES.BOARD.path}/${board._id}`} style={{ textDecoration: 'none' }}>
       <Card sx={{ width: 280, minHeight: 120, height: '100%' }}>
         <CardContent sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-          <Typography level="h2" fontSize="md" sx={{ mb: 0.5 }}>
+          <Typography level="h2" fontSize="md" sx={{ mb: 0.5, wordBreak: 'break-word' }}>
             {title}
           </Typography>
-          <Typography level="body1" textColor="text.secondary" sx={{ height: '100%', flexGrow: 1 }}>
+          <Typography
+            level="body1"
+            textColor="text.secondary"
+            sx={{ height: '100%', flexGrow: 1, wordBreak: 'break-word' }}
+          >
             {description}
           </Typography>
 

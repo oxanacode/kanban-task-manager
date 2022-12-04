@@ -48,10 +48,10 @@ export const AdvantageSection = () => {
         <Box
           component="img"
           src={image}
-          alt="Promo advantage"
+          alt="App advantage"
           sx={{
-            width: '100px',
-            maxHeight: '100px',
+            width: 100,
+            height: 100,
             m: { xs: 0, sm: '5px' },
           }}
         />
@@ -65,7 +65,7 @@ export const AdvantageSection = () => {
       <Typography
         level="h5"
         component="h2"
-        sx={{ position: 'relative', left: -16, bgcolor: 'background.surface', py: 2 }}
+        sx={{ position: 'relative', left: -16, bgcolor: 'background.surface', py: 2, pl: 2 }}
       >
         {t('features')}
       </Typography>

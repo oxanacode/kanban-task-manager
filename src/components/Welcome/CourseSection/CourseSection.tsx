@@ -23,8 +23,8 @@ export const CourseSection = () => {
         bgcolor: 'background.level1',
       }}
     >
-      <Box component="img" src={tech.image} sx={{ width: 40 }} />
-      <Typography level="body1" component="h4" textColor="text.secondary">
+      <Box component="img" src={tech.image} alt={tech.name} sx={{ width: 40, height: 40 }} />
+      <Typography level="body1" textColor="text.secondary">
         {tech.name}
       </Typography>
     </Box>
@@ -42,7 +42,7 @@ export const CourseSection = () => {
       <Typography
         level="h5"
         component="h2"
-        sx={{ position: 'relative', left: -16, bgcolor: 'background.surface', py: 2 }}
+        sx={{ position: 'relative', left: -16, bgcolor: 'background.surface', py: 2, pl: 2 }}
       >
         {t('development')}
       </Typography>

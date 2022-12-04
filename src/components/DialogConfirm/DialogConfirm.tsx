@@ -54,7 +54,7 @@ export const DialogConfirm = () => {
             {t('confirmation')}
           </Typography>
           <Divider sx={{ my: 2 }} />
-          <Typography id="alert-dialog-modal-description" textColor="text.tertiary" mb={3}>
+          <Typography id="alert-dialog-modal-description" textColor="text.tertiary" mb={3} textAlign="center">
             {t('confirmationText')}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1, justifyContent: 'space-between' }}>

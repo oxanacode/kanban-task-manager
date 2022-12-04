@@ -3,7 +3,8 @@ import Box from '@mui/joy/Box';
 import Link from '@mui/joy/Link';
 import Typography from '@mui/joy/Typography';
 
-import logoLight from '../../assets/images/rss-logo.svg';
+import { FooterLogo } from './FooterLogo';
+
 import { DEVELOPERS, SCHOOL_LINK } from '../../constants/DEVELOPERS';
 
 export const Footer = () => {
@@ -28,7 +29,7 @@ export const Footer = () => {
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'row' },
-        gap: 2,
+        gap: { xs: 1, sm: 2 },
         alignItems: 'center',
         justifyContent: 'space-between',
         px: { xs: 1, sm: 2 },
@@ -36,16 +37,8 @@ export const Footer = () => {
         bgcolor: 'background.surface',
       }}
     >
-      <Link href={SCHOOL_LINK} target="_blank" rel="noreferrer">
-        <Box
-          component="img"
-          sx={{
-            height: 38,
-            width: 102,
-          }}
-          alt="RSS Logo"
-          src={logoLight}
-        />
+      <Link href={SCHOOL_LINK} target="_blank" rel="noreferrer" id="rs-school-link">
+        <FooterLogo />
       </Link>
       <Box
         sx={{
@@ -56,7 +49,7 @@ export const Footer = () => {
       >
         {links}
       </Box>
-      <Typography>2022</Typography>
+      <Typography sx={{ width: { md: 'auto', lg: 102 }, textAlign: 'right' }}>2022</Typography>
     </Box>
   );
 };

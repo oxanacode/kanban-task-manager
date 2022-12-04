@@ -21,6 +21,7 @@ export const DevSection = () => {
           justifyContent: 'space-between',
           p: 2,
           width: '100%',
+          height: '100%',
           bgcolor: 'background.level1',
         }}
       >
@@ -48,7 +49,9 @@ export const DevSection = () => {
         <List aria-labelledby="contribution-list" sx={{ mx: 'auto' }}>
           {contribution.map((item) => (
             <ListItem key={item}>
-              <Typography textColor="text.secondary">{t(item)}</Typography>
+              <Typography textColor="text.secondary" mx="auto" textAlign="center">
+                {t(item)}
+              </Typography>
             </ListItem>
           ))}
         </List>
@@ -61,7 +64,7 @@ export const DevSection = () => {
       <Typography
         level="h5"
         component="h2"
-        sx={{ position: 'relative', left: -16, bgcolor: 'background.surface', py: 2 }}
+        sx={{ position: 'relative', left: -16, bgcolor: 'background.surface', py: 2, pl: 2 }}
       >
         {t('ourTeam')}
       </Typography>
@@ -72,7 +75,7 @@ export const DevSection = () => {
           justifyContent: 'center',
           gap: 2,
           px: 2,
-          py: 4,
+          py: 6,
           mx: 'auto',
         }}
       >

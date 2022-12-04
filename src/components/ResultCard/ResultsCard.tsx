@@ -36,10 +36,10 @@ export const ResultCard: FC<ResultCardPropsType> = ({ task, boardTitle, columnTi
     >
       <Card>
         <CardContent>
-          <Typography level="h2" fontSize="lg">
+          <Typography level="h2" fontSize="lg" sx={{ wordBreak: 'break-word' }}>
             {task.title}
           </Typography>
-          <Typography className={styles.overflow} sx={{ display: '-webkit-box' }}>
+          <Typography className={styles.overflow} sx={{ display: '-webkit-box', wordBreak: 'break-word' }}>
             {task.description}
           </Typography>
           <Typography level="body3">{`${t('board')}: ${boardTitle}`}</Typography>

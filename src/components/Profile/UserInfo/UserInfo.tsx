@@ -98,23 +98,26 @@ export const UserInfo = () => {
             mb: 2,
           }}
         >
-          <Avatar
-            className={styles.avatar}
-            alt={login}
-            src={avatar}
-            sx={{
-              height: '160px',
-              width: '160px',
-              cursor: 'pointer',
-              pointerEvents: isLoading ? 'none' : 'inherit',
-            }}
-            onClick={() => dispatch(toggleAvatarModal(true))}
-          />
-          {isLoading && (
-            <CircularProgress
-              sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+          <Box sx={{ position: 'relative' }}>
+            <Avatar
+              className={styles.avatar}
+              alt={login}
+              src={avatar}
+              sx={{
+                height: '160px',
+                width: '160px',
+                cursor: 'pointer',
+                pointerEvents: isLoading ? 'none' : 'inherit',
+              }}
+              onClick={() => dispatch(toggleAvatarModal(true))}
             />
-          )}
+            {isLoading && (
+              <CircularProgress
+                sx={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+              />
+            )}
+          </Box>
+
           <Box
             sx={{
               display: 'flex',

@@ -166,7 +166,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
     <Draggable key={task._id} draggableId={task._id} index={index}>
       {(provided) => (
         <Box {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-          <Card sx={{ my: 0.5, pt: covers[task._id] ? 18 : 2, position: 'relative' }}>
+          <Card sx={{ my: 0.5, pt: covers[task._id] ? 19 : 2, position: 'relative' }}>
             {Boolean(covers[task._id]) && (
               <Box
                 sx={{
@@ -194,7 +194,7 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
               <Box
                 sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <Typography level="h2" fontSize="lg">
+                <Typography level="h2" fontSize="lg" sx={{ wordBreak: 'break-word' }}>
                   {task.title}
                 </Typography>
                 <IconButtonJoy
@@ -265,7 +265,9 @@ export const Task: FC<TaskPropsType> = ({ task, index, column, files, points }) 
                 </Menu>
               </Box>
               <Box>
-                <Typography textColor="text.secondary">{task.description}</Typography>
+                <Typography textColor="text.secondary" sx={{ wordBreak: 'break-word' }}>
+                  {task.description}
+                </Typography>
               </Box>
 
               {(Boolean(files.length) || Boolean(points?.length) || isPoints) && (
