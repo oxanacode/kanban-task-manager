@@ -81,7 +81,7 @@ const githubTheme = extendJoyTheme({
           solidHoverBg: '#0072E5',
           solidActiveBg: '#0059B2',
           softColor: '#096BDE',
-          softBg: '#DDDEE0',
+          softBg: 'white',
         },
         neutral: {
           outlinedHoverBg: '#F2F4F5',

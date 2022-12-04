@@ -62,7 +62,7 @@ export const AvatarModal = ({ setFile }: IProps) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: 1,
-            border: '2px dashed var(--joy-palette-background-level3)',
+            border: '2px dashed var(--joy-palette-primary-300)',
             borderRadius: 8,
             position: 'relative',
             p: 1,
