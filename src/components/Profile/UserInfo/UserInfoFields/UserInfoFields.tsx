@@ -43,7 +43,6 @@ export const UserInfoFields = () => {
               letterSpacing: 'lg',
               fontWeight: 'lg',
               fontSize: 'xs',
-              textOverflow: 'ellipsis',
             }}
           >
             {t('name')}

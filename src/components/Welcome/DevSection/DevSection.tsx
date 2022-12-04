@@ -49,7 +49,9 @@ export const DevSection = () => {
         <List aria-labelledby="contribution-list" sx={{ mx: 'auto' }}>
           {contribution.map((item) => (
             <ListItem key={item}>
-              <Typography textColor="text.secondary">{t(item)}</Typography>
+              <Typography textColor="text.secondary" mx="auto" textAlign="center">
+                {t(item)}
+              </Typography>
             </ListItem>
           ))}
         </List>
