@@ -28,7 +28,7 @@ export const UserInfoFields = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
-            px: 2,
+            pl: 2,
             py: 1,
             borderRadius: 'sm',
             bgcolor: 'background.level1',
@@ -43,6 +43,7 @@ export const UserInfoFields = () => {
               letterSpacing: 'lg',
               fontWeight: 'lg',
               fontSize: 'xs',
+              textOverflow: 'ellipsis',
             }}
           >
             {t('name')}
@@ -58,7 +59,7 @@ export const UserInfoFields = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
             width: '100%',
-            px: 2,
+            pl: 2,
             py: 1,
             borderRadius: 'sm',
             bgcolor: 'background.level1',
