@@ -63,12 +63,19 @@ export default function DialogAddBoard() {
         sx={{
           maxWidth: 500,
           borderRadius: 'md',
+          border: 'none',
           p: 3,
           boxShadow: 'lg',
         }}
       >
-        <Typography id="basic-modal-dialog-title" component="h2" level="inherit" fontSize="1.25em" mb="0.25em">
-          {t('createNewBoard')}
+        <Typography
+          id="basic-modal-dialog-title"
+          component="h2"
+          level="inherit"
+          fontSize="1.25em"
+          sx={{ mb: 1, textAlign: 'center' }}
+        >
+          {t('newBoard')}
         </Typography>
 
         <form onSubmit={handleSubmit(onSubmit)}>

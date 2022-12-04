@@ -10,6 +10,8 @@ import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
+import styles from './FileAttachment.module.css';
+
 import { URL } from '../../../constants/URL';
 import { Context } from '../../../Context/Context';
 
@@ -46,8 +48,9 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
   return (
     <>
       <Sheet
-        variant="soft"
-        color="primary"
+        className={styles.item}
+        variant="outlined"
+        color="neutral"
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -59,8 +62,10 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
         }}
         onClick={() => setOpenImage(true)}
       >
-        <Typography startDecorator={<InsertDriveFileOutlinedIcon color="primary" />}>{name}</Typography>
-        <IconButton size="sm" onClick={handleDeleteClick}>
+        <Typography startDecorator={<InsertDriveFileOutlinedIcon color="primary" />} sx={{ color: 'text.secondary' }}>
+          {name}
+        </Typography>
+        <IconButton className={styles.icon} variant="plain" color="danger" size="sm" onClick={handleDeleteClick}>
           <CloseRoundedIcon />
         </IconButton>
       </Sheet>
@@ -70,8 +75,13 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
         onClose={() => setOpenImage(false)}
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
-        <ModalDialog sx={{ maxWidth: '50%' }}>
-          <IconButton sx={{ position: 'absolute', right: -16, top: -16 }} onClick={() => setOpenImage(false)}>
+        <ModalDialog sx={{ maxWidth: '50%', border: 'none' }}>
+          <IconButton
+            color="neutral"
+            size="sm"
+            sx={{ position: 'absolute', right: -14, top: -14 }}
+            onClick={() => setOpenImage(false)}
+          >
             <CloseRoundedIcon />
           </IconButton>
           <Box component="img" sx={{ width: '100%' }} src={`${URL}${path}`} />

@@ -94,13 +94,14 @@ export const SignInForm = () => {
             type="text"
             label={t('login')}
             placeholder={t('login')}
-            startDecorator={<PersonRoundedIcon />}
+            startDecorator={<PersonRoundedIcon color="primary" />}
+            sx={{ mb: errors.login ? 0 : 2.75 }}
           />
         )}
       />
       {errors.login && (
-        <Typography level="body2" color="danger">
-          {errors.login.message}
+        <Typography level="body2" color="danger" sx={{ height: 22 }}>
+          {t('twoToTenLettersLogin')}
         </Typography>
       )}
 
@@ -120,13 +121,14 @@ export const SignInForm = () => {
             type="password"
             placeholder={t('password')}
             label={t('password')}
-            startDecorator={<KeyRoundedIcon />}
+            startDecorator={<KeyRoundedIcon color="primary" />}
+            sx={{ mb: errors.password ? 0 : 2.75 }}
           />
         )}
       />
       {errors.password && (
-        <Typography level="body2" color="danger">
-          {errors.password.message}
+        <Typography level="body2" color="danger" sx={{ height: 22 }}>
+          {t('fieldIsRequire')}
         </Typography>
       )}
 

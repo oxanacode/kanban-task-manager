@@ -1,13 +1,11 @@
 import BackupRoundedIcon from '@mui/icons-material/BackupRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import ReportGmailerrorredRoundedIcon from '@mui/icons-material/ReportGmailerrorredRounded';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import IconButton from '@mui/joy/IconButton';
 import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
 import ModalDialog from '@mui/joy/ModalDialog';
-import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -71,12 +69,6 @@ export const AddFileModal = () => {
     handleClose();
   };
 
-  const handleChooseFile = () => {
-    if (fileInput?.current) {
-      fileInput.current.click();
-    }
-  };
-
   return (
     <Modal open={isAddFileModalOpened} onClose={handleClose}>
       <ModalDialog
@@ -86,11 +78,10 @@ export const AddFileModal = () => {
           borderRadius: 'md',
           p: 3,
           boxShadow: 'lg',
+          border: 'none',
         }}
       >
-        <IconButton variant="soft" onClick={handleClose} sx={{ position: 'absolute', top: -16, right: -16 }}>
-          <CloseRoundedIcon />
-        </IconButton>
+        <ModalClose />
         <Box
           sx={{
             display: 'flex',
@@ -98,11 +89,12 @@ export const AddFileModal = () => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: 1,
-            border: '3px dashed var(--joy-palette-primary-200)',
+            border: '2px dashed var(--joy-palette-background-level3)',
             borderRadius: 8,
             position: 'relative',
             p: 1,
             mb: 2,
+            mt: 3,
           }}
         >
           <input
@@ -112,11 +104,12 @@ export const AddFileModal = () => {
             accept=".jpg,.jpeg,.png"
             onChange={handleChange}
             disabled={isLoading}
+            style={{ zIndex: 2000 }}
           />
-          <BackupRoundedIcon sx={{ fontSize: 40, color: 'var(--joy-palette-primary-200)' }} />
+          <BackupRoundedIcon sx={{ fontSize: 40, color: 'var(--joy-palette-primary-300)' }} />
           <Typography sx={{ textAlign: 'center' }}>{t('dragDrop')}</Typography>
           <Typography>{t('or')}</Typography>
-          <Button variant="soft" onClick={handleChooseFile}>
+          <Button color="neutral" variant="soft">
             {t('chooseFile')}
           </Button>
         </Box>
@@ -124,11 +117,9 @@ export const AddFileModal = () => {
           {t('fileExtension')}
         </Typography>
         {fileForUpload && (
-          <Sheet variant="soft" color="primary" sx={{ width: '100%', borderRadius: 8, px: 2, py: 1, mb: 2 }}>
-            <Typography color="primary" startDecorator={<InsertDriveFileRoundedIcon />}>
-              {fileForUpload.name}
-            </Typography>
-          </Sheet>
+          <Typography sx={{ mb: 2 }} startDecorator={<InsertDriveFileRoundedIcon color="primary" />}>
+            {fileForUpload.name}
+          </Typography>
         )}
         {isFormatWrong && (
           <Typography color="danger" sx={{ mb: 2 }} startDecorator={<ReportGmailerrorredRoundedIcon />}>

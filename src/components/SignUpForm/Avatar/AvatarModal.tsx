@@ -1,10 +1,9 @@
 import BackupRoundedIcon from '@mui/icons-material/BackupRounded';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ReportGmailerrorredRoundedIcon from '@mui/icons-material/ReportGmailerrorredRounded';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import IconButton from '@mui/joy/IconButton';
 import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
 import ModalDialog from '@mui/joy/ModalDialog';
 import Typography from '@mui/joy/Typography';
 import { ChangeEvent, useRef, useState } from 'react';
@@ -43,12 +42,6 @@ export const AvatarModal = ({ setFile }: IProps) => {
     }
   };
 
-  const handleChooseFile = () => {
-    if (fileInput?.current) {
-      fileInput.current.click();
-    }
-  };
-
   return (
     <Modal open={isAvatarModal} onClose={handleClose}>
       <ModalDialog
@@ -58,11 +51,10 @@ export const AvatarModal = ({ setFile }: IProps) => {
           borderRadius: 'md',
           p: 3,
           boxShadow: 'lg',
+          border: 'none',
         }}
       >
-        <IconButton variant="soft" onClick={handleClose} sx={{ position: 'absolute', top: -16, right: -16 }}>
-          <CloseRoundedIcon />
-        </IconButton>
+        <ModalClose />
         <Box
           sx={{
             display: 'flex',
@@ -70,11 +62,12 @@ export const AvatarModal = ({ setFile }: IProps) => {
             justifyContent: 'center',
             alignItems: 'center',
             gap: 1,
-            border: '3px dashed var(--joy-palette-primary-200)',
+            border: '2px dashed var(--joy-palette-background-level3)',
             borderRadius: 8,
             position: 'relative',
             p: 1,
             mb: 2,
+            mt: 4,
           }}
         >
           <input
@@ -83,11 +76,12 @@ export const AvatarModal = ({ setFile }: IProps) => {
             type="file"
             accept=".jpg,.jpeg,.png"
             onChange={handleChange}
+            style={{ zIndex: 2000 }}
           />
-          <BackupRoundedIcon sx={{ fontSize: 40, color: 'var(--joy-palette-primary-200)' }} />
+          <BackupRoundedIcon sx={{ fontSize: 40, color: 'var(--joy-palette-primary-300)' }} />
           <Typography sx={{ textAlign: 'center' }}>{t('dragDrop')}</Typography>
           <Typography>{t('or')}</Typography>
-          <Button variant="soft" onClick={handleChooseFile}>
+          <Button color="neutral" variant="soft">
             {t('chooseFile')}
           </Button>
         </Box>

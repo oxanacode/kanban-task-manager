@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
+import styles from './columns.module.css';
+
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   ColumnType,
@@ -225,19 +227,20 @@ export const Columns = () => {
   return (
     <>
       {isColumnsLoading || isTasksLoading || isFilesLoading || isCoversLoading || isPointsLoading ? (
-        <CircularProgress sx={{ mx: 'auto', mt: 10 }} />
+        <CircularProgress sx={{ mx: 'auto', mt: 6 }} />
       ) : (
         <Box sx={{ flexGrow: 1, position: 'relative' }}>
           <Box
+            className={styles.list}
             sx={{
               display: 'flex',
               alignItems: 'flex-start',
               overflowX: 'auto',
               position: 'absolute',
-              gap: 2,
+              gap: 1,
               inset: 0,
               pr: 2,
-              py: 2,
+              pb: 2,
             }}
           >
             <DragDropContext onDragEnd={onDragEnd}>
@@ -251,9 +254,9 @@ export const Columns = () => {
               </Droppable>
             </DragDropContext>
             <Button
-              variant="plain"
+              variant="outlined"
               color="neutral"
-              startDecorator={<AddRoundedIcon />}
+              startDecorator={<AddRoundedIcon color="primary" />}
               sx={{ width: 260, flexShrink: 0 }}
               onClick={handleClick}
             >

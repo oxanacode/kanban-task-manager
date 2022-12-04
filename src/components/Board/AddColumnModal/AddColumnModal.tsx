@@ -42,7 +42,7 @@ export const AddColumnModal = () => {
     if (isSuccess) {
       handleClose();
     }
-  }, [isSuccess, handleClose, t]);
+  }, [isSuccess, handleClose]);
 
   const onSubmit: SubmitHandler<AddColumnFormType> = async (formData: AddColumnFormType) => {
     const body = {
@@ -67,9 +67,16 @@ export const AddColumnModal = () => {
           borderRadius: 'md',
           p: 3,
           boxShadow: 'lg',
+          border: 'none',
         }}
       >
-        <Typography id="add-column-modal-dialog-title" component="h2" level="inherit" fontSize="1.25em" mb="0.25em">
+        <Typography
+          id="add-column-modal-dialog-title"
+          component="h2"
+          level="inherit"
+          fontSize="1.25em"
+          sx={{ mb: 1, textAlign: 'center' }}
+        >
           {t('newColumn')}
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>

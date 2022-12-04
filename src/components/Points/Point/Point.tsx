@@ -1,4 +1,4 @@
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded';
 import { IconButton } from '@mui/joy';
 import Checkbox from '@mui/joy/Checkbox';
 import ListItem from '@mui/joy/ListItem';
@@ -43,7 +43,7 @@ export const Point = ({ point }: IProps) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        py: 0,
+        p: 0,
       }}
     >
       <Checkbox
@@ -59,11 +59,11 @@ export const Point = ({ point }: IProps) => {
         variant="plain"
         color="danger"
         type="submit"
-        title={t('addPoint')}
+        title={t('deletePoint')}
         size="sm"
         onClick={delTask}
       >
-        <DeleteOutlineRoundedIcon />
+        <ClearRoundedIcon />
       </IconButton>
     </ListItem>
   );

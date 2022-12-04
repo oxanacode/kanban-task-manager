@@ -1,4 +1,4 @@
-import Sheet from '@mui/joy/Sheet';
+import Box from '@mui/joy/Box';
 
 import { MainHeader, MainResults, SearchHeader, SearchResults, SearchInput } from '../../components/Main';
 import { useAppSelector } from '../../store/hooks';
@@ -7,9 +7,10 @@ export const Main = () => {
   const { searchQuery: isSearch } = useAppSelector((state) => state.tasks);
 
   return (
-    <Sheet
+    <Box
       sx={{
         height: '100%',
+        maxWidth: 1200,
         mx: 'auto',
         py: 3,
         px: 2,
@@ -17,7 +18,6 @@ export const Main = () => {
         flexDirection: 'column',
         gap: 2,
       }}
-      variant="soft"
     >
       <SearchInput />
 
@@ -32,6 +32,6 @@ export const Main = () => {
           <MainResults />
         </>
       )}
-    </Sheet>
+    </Box>
   );
 };
