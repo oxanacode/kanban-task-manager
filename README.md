@@ -1,6 +1,6 @@
 # Project Management System
 
-![welcome-page](https://user-images.githubusercontent.com/71071594/205486140-2b2ba7c2-bd10-480c-bdda-48b703334b66.png)
+![welcome-page](https://user-images.githubusercontent.com/97596089/205495344-44dae316-de42-45ce-aa26-9d525710ec86.png)
 
 **Project management system is an application that helps a team or group of developers achieve their goals.**
 
