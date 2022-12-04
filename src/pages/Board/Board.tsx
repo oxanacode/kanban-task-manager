@@ -53,7 +53,18 @@ export const Board = () => {
         {t('toMainPage')}
       </Button>
       <Box sx={{ height: 36 }}>
-        <Typography component="h2" sx={{ fontSize: 24, ml: 1 }}>
+        <Typography
+          component="h2"
+          sx={{
+            fontSize: 24,
+            ml: 1,
+            maxWidth: '80vw',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            display: 'block',
+          }}
+        >
           {data?.title}
         </Typography>
       </Box>

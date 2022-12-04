@@ -44,6 +44,7 @@ export const Point = ({ point }: IProps) => {
         alignItems: 'center',
         justifyContent: 'space-between',
         p: 0,
+        pt: 1,
       }}
     >
       <Checkbox
@@ -51,7 +52,11 @@ export const Point = ({ point }: IProps) => {
         onChange={togglePoint}
         size="sm"
         checked={isChecked}
-        sx={{ textDecoration: isChecked ? 'line-through' : 'none', color: isChecked ? 'lightgrey' : 'inherit' }}
+        sx={{
+          textDecoration: isChecked ? 'line-through' : 'none',
+          color: isChecked ? 'lightgrey' : 'inherit',
+          wordBreak: 'break-word',
+        }}
       />
 
       <IconButton

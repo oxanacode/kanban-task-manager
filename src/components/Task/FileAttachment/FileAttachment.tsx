@@ -1,9 +1,11 @@
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
-import { ModalDialog } from '@mui/joy';
+
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Modal from '@mui/joy/Modal';
+import ModalClose from '@mui/joy/ModalClose';
+import ModalDialog from '@mui/joy/ModalDialog';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/joy/Typography';
 import { useContext, useState } from 'react';
@@ -62,9 +64,23 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
         }}
         onClick={() => setOpenImage(true)}
       >
-        <Typography startDecorator={<InsertDriveFileOutlinedIcon color="primary" />} sx={{ color: 'text.secondary' }}>
-          {name}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <InsertDriveFileOutlinedIcon color="primary" />
+          <Typography
+            title={name}
+            sx={{
+              maxWidth: 150,
+              color: 'text.secondary',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              display: 'block',
+            }}
+          >
+            {name}
+          </Typography>
+        </Box>
+
         <IconButton className={styles.icon} variant="plain" color="danger" size="sm" onClick={handleDeleteClick}>
           <CloseRoundedIcon />
         </IconButton>
@@ -75,16 +91,14 @@ export const FileAttachment = ({ name, path, fileId }: FileAttachmentProps) => {
         onClose={() => setOpenImage(false)}
         sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
       >
-        <ModalDialog sx={{ maxWidth: '50%', border: 'none' }}>
-          <IconButton
-            color="neutral"
-            size="sm"
-            sx={{ position: 'absolute', right: -14, top: -14 }}
-            onClick={() => setOpenImage(false)}
-          >
-            <CloseRoundedIcon />
-          </IconButton>
-          <Box component="img" sx={{ width: '100%' }} src={`${URL}${path}`} />
+        <ModalDialog sx={{ border: 'none' }}>
+          <ModalClose />
+          <Box
+            component="img"
+            sx={{ maxHeight: '80vh', maxWidth: '80vw', objectFit: 'fill' }}
+            src={`${URL}${path}`}
+            alt="Attached image"
+          />
         </ModalDialog>
       </Modal>
     </>

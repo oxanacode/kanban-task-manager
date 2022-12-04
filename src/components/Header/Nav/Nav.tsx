@@ -1,4 +1,4 @@
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import Box from '@mui/joy/Box';
 import { useEffect, useState } from 'react';
@@ -52,7 +52,7 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
         <>
           <CreateNewBoard />
           <NavButton route={ROUTES.MAIN.path} variant={'solid'} text={t('toMainPage')} isHeader={placedInHeader}>
-            <HomeRoundedIcon color="primary" />
+            <HomeOutlinedIcon color="primary" />
           </NavButton>
           <SignOutButton isHeader={placedInHeader} />
         </>

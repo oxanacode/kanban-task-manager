@@ -35,7 +35,7 @@ export const AddFileModal = () => {
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
+    if (event.target.files && event.target.files[0].type) {
       if (event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/png') {
         setIsFormatWrong(false);
         setFileToUpload(event.target.files[0]);
@@ -117,9 +117,20 @@ export const AddFileModal = () => {
           {t('fileExtension')}
         </Typography>
         {fileForUpload && (
-          <Typography sx={{ mb: 2 }} startDecorator={<InsertDriveFileRoundedIcon color="primary" />}>
-            {fileForUpload.name}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 0.5 }}>
+            <InsertDriveFileRoundedIcon color="primary" />
+            <Typography
+              sx={{
+                maxWidth: 216,
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                display: 'block',
+              }}
+            >
+              {fileForUpload.name}
+            </Typography>
+          </Box>
         )}
         {isFormatWrong && (
           <Typography color="danger" sx={{ mb: 2 }} startDecorator={<ReportGmailerrorredRoundedIcon />}>

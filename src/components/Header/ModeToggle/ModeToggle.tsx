@@ -1,4 +1,4 @@
-import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import IconButton from '@mui/joy/IconButton';
 import { useColorScheme } from '@mui/joy/styles';
@@ -19,7 +19,7 @@ export const ModeToggle = () => {
         }
       }}
     >
-      {mode === 'light' ? <DarkModeRoundedIcon color="primary" /> : <LightModeRoundedIcon color="primary" />}
+      {mode === 'light' ? <DarkModeOutlinedIcon color="primary" /> : <LightModeRoundedIcon color="primary" />}
     </IconButton>
   );
 };
