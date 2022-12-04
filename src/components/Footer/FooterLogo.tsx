@@ -1,5 +1,6 @@
 export const FooterLogo = () => {
   const color = 'var(--joy-palette-primary-solidBg)';
+
   return (
     <svg
       width="102"
