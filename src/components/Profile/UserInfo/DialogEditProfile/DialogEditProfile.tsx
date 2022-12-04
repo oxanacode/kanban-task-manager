@@ -198,7 +198,7 @@ export const DialogEditProfile = ({ openDialog, isDialogOpen }: IProps) => {
             )}
 
             <Box sx={{ display: 'flex', gap: 1, justifyContent: 'space-between', mt: 1 }}>
-              <Button type="button" variant="plain" sx={{ mt: 1 }} color="neutral" onClick={onClose}>
+              <Button type="button" variant="outlined" sx={{ mt: 1 }} color="neutral" onClick={onClose}>
                 {t('cancel')}
               </Button>
               <Button type="submit" sx={{ mt: 1 }} color="danger" loading={logInUserLoading || updateUserLoading}>
