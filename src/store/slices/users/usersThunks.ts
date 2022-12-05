@@ -43,7 +43,7 @@ export const getUsers = createAsyncThunk<IUserInfo[], undefined, { rejectValue: 
       const userInfo = id ? getUserDataById(data, id) : getUserDataByLogin(data, login);
       dispatch(setUserInfo(userInfo));
       if (userInfo) {
-        dispatch(getFilesByUserId(userInfo.login));
+        dispatch(getFilesByUserId(userInfo._id));
       }
       return data;
     } catch (error) {
@@ -60,7 +60,7 @@ export const getUsers = createAsyncThunk<IUserInfo[], undefined, { rejectValue: 
 
 export const getFilesByUserId = createAsyncThunk<FileType[], string, { rejectValue: IError }>(
   'users/getFilesByUserId',
-  async (login, { rejectWithValue, getState, dispatch }) => {
+  async (id, { rejectWithValue, getState, dispatch }) => {
     const state: RootState = <RootState>getState();
     const { token } = state.user;
     try {
@@ -71,8 +71,8 @@ export const getFilesByUserId = createAsyncThunk<FileType[], string, { rejectVal
           'Content-Type': 'application/json',
         },
         params: {
-          userId: login,
-          taskId: login,
+          userId: id,
+          taskId: id,
         },
       });
 

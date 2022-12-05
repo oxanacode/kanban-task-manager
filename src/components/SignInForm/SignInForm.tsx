@@ -46,13 +46,16 @@ export const SignInForm = () => {
     }
     dispatch(setToken(token));
     dispatch(setLogin(data.login));
-    dispatch(getFilesByUserId(data.login));
     setSkip(false);
   };
 
   useEffect(() => {
     if (usersData) {
-      dispatch(setUserInfo(getUserDataByLogin(usersData, login)));
+      const userInfo = getUserDataByLogin(usersData, login);
+      dispatch(setUserInfo(userInfo));
+      if (userInfo) {
+        dispatch(getFilesByUserId(userInfo._id));
+      }
       dispatch(setIsUserLogIn(true));
       toast.success(t('youveSuccessfullySignedIn'), {
         toastId: 'youveSuccessfullySignedIn',

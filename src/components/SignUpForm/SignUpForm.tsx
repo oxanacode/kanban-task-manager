@@ -52,9 +52,9 @@ export const SignUpForm = () => {
     mode: 'onChange',
   });
 
-  const uploadAvatar = async (login: string) => {
+  const uploadAvatar = async (id: string) => {
     if (file) {
-      uploadFile(getFormData(login, file))
+      uploadFile(getFormData(id, file))
         .unwrap()
         .then((data) => {
           dispatch(setAvatarInfo(data));
@@ -88,7 +88,7 @@ export const SignUpForm = () => {
 
       dispatch(setToken(token));
 
-      await uploadAvatar(restData.login);
+      await uploadAvatar(userData._id);
 
       dispatch(setIsUserLogIn(true));
 

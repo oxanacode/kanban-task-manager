@@ -53,14 +53,14 @@ export const UserInfo = () => {
       delFile(avatarInfo._id).catch(() => {});
     }
 
-    uploadFile(getFormData(login, file!, avatarInfo))
+    uploadFile(getFormData(id, file!, avatarInfo))
       .unwrap()
       .then((data) => {
         dispatch(setAvatarInfo(data));
         dispatch(setAvatar(`${URL}${data.path}`));
       })
       .catch(() => toast.error(t('serverError')));
-  }, [avatarInfo, delFile, dispatch, file, login, t, uploadFile]);
+  }, [avatarInfo, delFile, dispatch, file, id, t, uploadFile]);
 
   useEffect(() => {
     if (file && file !== prevFile.current) {
