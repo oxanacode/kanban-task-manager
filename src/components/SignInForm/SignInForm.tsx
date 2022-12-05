@@ -33,7 +33,7 @@ export const SignInForm = () => {
   } = useForm<IFormInput>({
     mode: 'onChange',
   });
-  const { login, token, isUserLogIn } = useAppSelector((state) => state.user);
+  const { login, token } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [logInUser, { error: logInError, isLoading: logInUserLoading }] = useLogInUserMutation();
@@ -48,21 +48,21 @@ export const SignInForm = () => {
       return;
     }
     dispatch(setToken(token));
-    dispatch(setIsUserLogIn(true));
     dispatch(setLogin(data.login));
     dispatch(getFilesByUserId(data.login));
     setSkip(false);
   };
 
   useEffect(() => {
-    if (usersData && isUserLogIn) {
+    if (usersData) {
+      dispatch(setIsUserLogIn(true));
       dispatch(setUserInfo(getUserDataByLogin(usersData, login)));
       toast.success(t('youveSuccessfullySignedIn'), {
         toastId: 'youveSuccessfullySignedIn',
       });
       navigate(ROUTES.MAIN.path);
     }
-  }, [dispatch, isUserLogIn, login, navigate, t, usersData]);
+  }, [dispatch, login, navigate, t, usersData]);
 
   useEffect(() => {
     if (isError && token) {
