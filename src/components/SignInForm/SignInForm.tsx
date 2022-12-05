@@ -8,10 +8,8 @@ import { useEffect, useState } from 'react';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { ROUTES } from '../../constants/routes';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useLogInUserMutation } from '../../store/slices/user/authApi';
 import { setIsUserLogIn, setLogin, setToken, setUserInfo } from '../../store/slices/user/userSlice';
@@ -34,7 +32,6 @@ export const SignInForm = () => {
     mode: 'onChange',
   });
   const { login, token } = useAppSelector((state) => state.user);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [logInUser, { error: logInError, isLoading: logInUserLoading }] = useLogInUserMutation();
   const [skip, setSkip] = useState(true);
@@ -55,14 +52,13 @@ export const SignInForm = () => {
 
   useEffect(() => {
     if (usersData) {
-      dispatch(setIsUserLogIn(true));
       dispatch(setUserInfo(getUserDataByLogin(usersData, login)));
+      dispatch(setIsUserLogIn(true));
       toast.success(t('youveSuccessfullySignedIn'), {
         toastId: 'youveSuccessfullySignedIn',
       });
-      navigate(ROUTES.MAIN.path);
     }
-  }, [dispatch, login, navigate, t, usersData]);
+  }, [dispatch, login, t, usersData]);
 
   useEffect(() => {
     if (isError && token) {
