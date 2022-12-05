@@ -33,7 +33,7 @@ export const SignInForm = () => {
   } = useForm<IFormInput>({
     mode: 'onChange',
   });
-  const { login, token, isUserLogIn } = useAppSelector((state) => state.user);
+  const { login, token } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [logInUser, { error: logInError, isLoading: logInUserLoading }] = useLogInUserMutation();
