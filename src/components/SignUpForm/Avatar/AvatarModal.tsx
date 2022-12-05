@@ -31,7 +31,7 @@ export const AvatarModal = ({ setFile }: IProps) => {
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
+    if (event.target.files && event.target.files[0].type) {
       if (event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/png') {
         setIsFormatWrong(false);
         setFile(event.target.files[0]);
