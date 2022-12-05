@@ -32,6 +32,10 @@ export const SignInForm = () => {
     mode: 'onChange',
   });
   const { login, token } = useAppSelector((state) => state.user);
+<<<<<<< HEAD
+=======
+  const navigate = useNavigate();
+>>>>>>> 181e5a3c8c257503f51ac8a4c6cdfafc50f74a44
   const dispatch = useAppDispatch();
   const [logInUser, { error: logInError, isLoading: logInUserLoading }] = useLogInUserMutation();
   const [skip, setSkip] = useState(true);
@@ -52,13 +56,21 @@ export const SignInForm = () => {
 
   useEffect(() => {
     if (usersData) {
+<<<<<<< HEAD
+=======
+      dispatch(setIsUserLogIn(true));
+>>>>>>> 181e5a3c8c257503f51ac8a4c6cdfafc50f74a44
       dispatch(setUserInfo(getUserDataByLogin(usersData, login)));
       dispatch(setIsUserLogIn(true));
       toast.success(t('youveSuccessfullySignedIn'), {
         toastId: 'youveSuccessfullySignedIn',
       });
     }
+<<<<<<< HEAD
   }, [dispatch, login, t, usersData]);
+=======
+  }, [dispatch, login, navigate, t, usersData]);
+>>>>>>> 181e5a3c8c257503f51ac8a4c6cdfafc50f74a44
 
   useEffect(() => {
     if (isError && token) {
