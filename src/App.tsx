@@ -25,7 +25,7 @@ function App() {
     <CssVarsProvider theme={theme}>
       <CssBaseline>
         <RoutesWrapper />
-        <ToastContainer position="bottom-left" theme="colored" />
+        <ToastContainer position="bottom-left" theme="colored" autoClose={3000} />
       </CssBaseline>
     </CssVarsProvider>
   );

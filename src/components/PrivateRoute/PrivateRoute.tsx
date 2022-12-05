@@ -18,7 +18,7 @@ export const PrivateRoute = ({ children }: PrivateRoutePropsType) => {
 
   useEffect(() => {
     if (!auth) {
-      toast.warn(t('authRequired'), {
+      toast.info(t('authRequired'), {
         toastId: 'authRequired',
       });
 
