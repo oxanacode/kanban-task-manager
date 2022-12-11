@@ -8,7 +8,7 @@ export const ModeToggle = () => {
   return (
     <IconButton
       id="toggle-mode"
-      size="md"
+      size="sm"
       variant="outlined"
       color="neutral"
       onClick={() => {

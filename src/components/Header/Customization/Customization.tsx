@@ -8,7 +8,7 @@ export const Customization = () => {
     <Box
       sx={[
         {
-          marginLeft: 'auto',
+          marginRight: 'auto',
           gap: 2,
           bgcolor: 'background.componentBg',
           display: 'flex',

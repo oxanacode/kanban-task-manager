@@ -1,4 +1,4 @@
-import Switch from '@mui/joy/Switch';
+import Switch, { switchClasses } from '@mui/joy/Switch';
 import Typography from '@mui/joy/Typography';
 import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +28,8 @@ export const LanguageSelect = () => {
   return (
     <>
       <Switch
-        color="primary"
+        color="neutral"
+        variant="outlined"
         checked={langSwitch}
         onChange={handleSwitch}
         componentsProps={{
@@ -36,10 +37,10 @@ export const LanguageSelect = () => {
           track: {
             children: (
               <Fragment>
-                <Typography component="span" level="inherit" sx={{ ml: '12px' }}>
+                <Typography component="span" level="inherit" color="primary" fontWeight="md" sx={{ ml: '5px' }}>
                   РУ
                 </Typography>
-                <Typography component="span" level="inherit" sx={{ mr: '12px' }}>
+                <Typography component="span" level="inherit" color="primary" fontWeight="md" sx={{ mr: '4px' }}>
                   EN
                 </Typography>
               </Fragment>
@@ -47,9 +48,21 @@ export const LanguageSelect = () => {
           },
         }}
         sx={{
-          '--Switch-thumb-size': '26px',
-          '--Switch-track-width': '66px',
+          '--Switch-thumb-shadow': '0 0 0 1px var(--joy-palette-background-level3)',
+          '--Switch-thumb-background': 'var(--joy-palette-background-surface)',
+          '--Switch-thumb-size': '22px',
+          '--Switch-thumb-border': '13px solid red',
+          '--Switch-track-width': '62px',
           '--Switch-track-height': '32px',
+          '&:hover': {
+            '--Switch-thumb-background': 'var(--joy-palette-background-surface)',
+          },
+          [`&.${switchClasses.checked}`]: {
+            '--Switch-thumb-background': 'var(--joy-palette-background-surface)',
+          },
+          [`&.${switchClasses.checked}:hover`]: {
+            '--Switch-thumb-background': 'var(--joy-palette-background-surface)',
+          },
         }}
       />
     </>
