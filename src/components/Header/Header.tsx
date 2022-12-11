@@ -22,8 +22,7 @@ function ElevationScroll(props: Props) {
   });
 
   return cloneElement(children, {
-    boxShadow: trigger ? 'md' : 'none',
-    bgcolor: trigger ? 'neutral.softBg' : 'background.surface',
+    boxShadow: trigger ? 'sm' : 'none',
   });
 }
 
@@ -48,6 +47,7 @@ export const Header = (props: BoxProps) => {
             position: 'sticky',
             top: 0,
             zIndex: 1100,
+            bgcolor: 'background.surface',
             transitionDuration: '0.3s',
           },
           ...(Array.isArray(props.sx) ? props.sx : [props.sx]),
