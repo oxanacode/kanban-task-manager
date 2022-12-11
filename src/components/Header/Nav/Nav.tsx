@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes';
 import { useAppSelector } from '../../../store/hooks';
 import { HeaderState } from '../../../types/HeaderState';
-import { CreateNewBoard } from '../CreateBoardButton';
 import { NavButton } from '../NavButton';
 import { SignOutButton } from '../SignOutButton';
 
@@ -39,7 +38,6 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     case HeaderState.main:
       nav = (
         <>
-          <CreateNewBoard />
           <NavButton route={ROUTES.PROFILE.path} variant={'solid'} text={t('profile')} isHeader={placedInHeader}>
             <PersonOutlineRoundedIcon color="primary" />
           </NavButton>
@@ -50,7 +48,6 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     case HeaderState.profile:
       nav = (
         <>
-          <CreateNewBoard />
           <NavButton route={ROUTES.MAIN.path} variant={'solid'} text={t('toMainPage')} isHeader={placedInHeader}>
             <HomeOutlinedIcon color="primary" />
           </NavButton>
@@ -59,7 +56,17 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
       );
       break;
     case HeaderState.loggedWelcome:
-      nav = <NavButton route={ROUTES.MAIN.path} variant={'plain'} text={t('toMainPage')} isHeader={placedInHeader} />;
+      nav = (
+        <>
+          <NavButton route={ROUTES.MAIN.path} variant={'solid'} text={t('toMainPage')} isHeader={placedInHeader}>
+            <HomeOutlinedIcon color="primary" />
+          </NavButton>
+          <NavButton route={ROUTES.PROFILE.path} variant={'solid'} text={t('profile')} isHeader={placedInHeader}>
+            <PersonOutlineRoundedIcon color="primary" />
+          </NavButton>
+          <SignOutButton isHeader={placedInHeader} />
+        </>
+      );
       break;
     default:
       nav = (
