@@ -38,7 +38,13 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     case HeaderState.main:
       nav = (
         <>
-          <NavButton route={ROUTES.PROFILE.path} variant={'solid'} text={t('profile')} isHeader={placedInHeader}>
+          <NavButton
+            route={ROUTES.PROFILE.path}
+            variant={'outlined'}
+            color={'neutral'}
+            text={t('profile')}
+            isHeader={placedInHeader}
+          >
             <PersonOutlineRoundedIcon color="primary" />
           </NavButton>
           <SignOutButton isHeader={placedInHeader} />
@@ -48,7 +54,13 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     case HeaderState.profile:
       nav = (
         <>
-          <NavButton route={ROUTES.MAIN.path} variant={'solid'} text={t('toMainPage')} isHeader={placedInHeader}>
+          <NavButton
+            route={ROUTES.MAIN.path}
+            variant={'outlined'}
+            color={'neutral'}
+            text={t('toMainPage')}
+            isHeader={placedInHeader}
+          >
             <HomeOutlinedIcon color="primary" />
           </NavButton>
           <SignOutButton isHeader={placedInHeader} />
@@ -58,10 +70,22 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     case HeaderState.loggedWelcome:
       nav = (
         <>
-          <NavButton route={ROUTES.MAIN.path} variant={'solid'} text={t('toMainPage')} isHeader={placedInHeader}>
+          <NavButton
+            route={ROUTES.MAIN.path}
+            variant={'outlined'}
+            color={'neutral'}
+            text={t('toMainPage')}
+            isHeader={placedInHeader}
+          >
             <HomeOutlinedIcon color="primary" />
           </NavButton>
-          <NavButton route={ROUTES.PROFILE.path} variant={'solid'} text={t('profile')} isHeader={placedInHeader}>
+          <NavButton
+            route={ROUTES.PROFILE.path}
+            variant={'outlined'}
+            color={'neutral'}
+            text={t('profile')}
+            isHeader={placedInHeader}
+          >
             <PersonOutlineRoundedIcon color="primary" />
           </NavButton>
           <SignOutButton isHeader={placedInHeader} />

@@ -9,7 +9,7 @@ export const Customization = () => {
       sx={[
         {
           marginRight: 'auto',
-          gap: 2,
+          gap: 1,
           bgcolor: 'background.componentBg',
           display: 'flex',
           flexDirection: 'row',
@@ -18,8 +18,8 @@ export const Customization = () => {
         },
       ]}
     >
-      <LanguageSelect />
       <ModeToggle />
+      <LanguageSelect />
     </Box>
   );
 };
