@@ -119,67 +119,80 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex, tasks
           {...provided.draggableProps}
           ref={provided.innerRef}
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
             width: 280,
-            flexShrink: 0,
             height: '100%',
             mx: 1,
-            p: 1,
-            borderRadius: 'sm',
-            bgcolor: 'background.level2',
           }}
           onMouseDown={() => dispatch(setTitleEditId(null))}
         >
           <Box
-            {...provided.dragHandleProps}
-            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 1 }}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
+              maxHeight: '100%',
+              borderRadius: 'sm',
+              bgcolor: 'background.level2',
+              p: 1,
+            }}
           >
-            {isInputActive ? (
-              <ColumnTitleInput column={column.columnData} />
-            ) : (
-              <>
-                <Typography
-                  component="h3"
-                  level="h6"
-                  sx={{ width: 224, pl: 2, wordBreak: 'break-word' }}
-                  onClick={(e: React.SyntheticEvent) => {
-                    e.stopPropagation();
-                    dispatch(setTitleEditId(columnId));
-                  }}
-                >
-                  {title}
-                </Typography>
-                <IconButton variant="outlined" color="neutral" size="sm" onClick={onClickDelete}>
-                  <ClearRoundedIcon />
-                </IconButton>
-              </>
-            )}
-          </Box>
-          <Box className={styles.list} sx={{ overflowY: 'auto' }}>
-            <Droppable droppableId={columnId} type="tasks">
-              {(provided) => (
-                <Box
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  sx={{ display: 'flex', flexDirection: 'column', minHeight: 20, p: 0 }}
-                >
-                  {tasks}
-                  {provided.placeholder}
-                </Box>
+            <Box
+              {...provided.dragHandleProps}
+              sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 1 }}
+            >
+              {isInputActive ? (
+                <ColumnTitleInput column={column.columnData} />
+              ) : (
+                <>
+                  <Typography
+                    component="h3"
+                    level="h6"
+                    sx={{ width: 224, pl: 2, wordBreak: 'break-word' }}
+                    onClick={(e: React.SyntheticEvent) => {
+                      e.stopPropagation();
+                      dispatch(setTitleEditId(columnId));
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                  <IconButton variant="outlined" color="neutral" size="sm" onClick={onClickDelete}>
+                    <ClearRoundedIcon />
+                  </IconButton>
+                </>
               )}
-            </Droppable>
+            </Box>
+            <Box className={styles.list} sx={{ overflowY: 'auto' }}>
+              <Droppable droppableId={columnId} type="tasks">
+                {(provided) => (
+                  <Box
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      minHeight: 60,
+                      p: 0,
+                      border: tasks.length ? 'none' : '1px dashed var(--joy-palette-neutral-outlinedBorder)',
+                      borderRadius: tasks.length ? 'none' : 'md',
+                      my: tasks.length ? 0 : '4px',
+                    }}
+                  >
+                    {tasks}
+                    {provided.placeholder}
+                  </Box>
+                )}
+              </Droppable>
+            </Box>
+            <Button
+              startDecorator={<AddRoundedIcon color="primary" />}
+              sx={{ width: '100%' }}
+              variant="outlined"
+              color="neutral"
+              onClick={onClickAddTask}
+            >
+              {t('addTask')}
+            </Button>
           </Box>
-          <Button
-            startDecorator={<AddRoundedIcon color="primary" />}
-            sx={{ width: '100%' }}
-            variant="outlined"
-            color="neutral"
-            onClick={onClickAddTask}
-          >
-            {t('addTask')}
-          </Button>
         </Box>
       )}
     </Draggable>
