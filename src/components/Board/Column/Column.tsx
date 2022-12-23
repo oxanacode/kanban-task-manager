@@ -172,9 +172,10 @@ export const Column: FC<ColumnPropsType> = ({ column, columns, boardIndex, tasks
                       flexDirection: 'column',
                       minHeight: 60,
                       p: 0,
-                      border: tasks.length ? 'none' : '1px dashed var(--joy-palette-neutral-outlinedBorder)',
+                      outline: tasks.length ? 'none' : '1px dashed var(--joy-palette-neutral-outlinedBorder)',
+                      outlineOffset: -1,
                       borderRadius: tasks.length ? 'none' : 'md',
-                      my: tasks.length ? 0 : '4px',
+                      // my: tasks.length ? 0 : '4px',
                     }}
                   >
                     {tasks}

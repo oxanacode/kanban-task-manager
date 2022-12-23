@@ -37,7 +37,7 @@ export const Board = () => {
         flexDirection: 'column',
         height: '100%',
         gap: 1,
-        pl: 2,
+        pl: 1,
         pt: 2,
         pb: 2,
       }}
@@ -49,7 +49,7 @@ export const Board = () => {
         <Typography
           component="h2"
           sx={{
-            maxWidth: '80vw',
+            maxWidth: '60vw',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
