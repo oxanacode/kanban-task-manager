@@ -1,1 +1,1 @@
-export const URL = 'https://team27.site/';
+export const URL = 'https://kanban-task-manager-backend.onrender.com/';
