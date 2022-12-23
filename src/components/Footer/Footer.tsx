@@ -18,6 +18,7 @@ export const Footer = () => {
       variant="plain"
       color="neutral"
       startDecorator={<GitHubIcon color="primary" sx={{ display: { xs: 'none', sm: 'block' } }} />}
+      sx={{ fontSize: { xs: 12, sm: 'inherit' } }}
     >
       {dev.nickname}
     </Link>
@@ -29,15 +30,20 @@ export const Footer = () => {
       sx={{
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'row' },
-        gap: { xs: 1, sm: 2 },
+        gap: { xs: 0.5, sm: 2 },
         alignItems: 'center',
         justifyContent: 'space-between',
-        px: { xs: 1, sm: 2 },
-        py: 2,
+        p: { xs: 1, sm: 2 },
         bgcolor: 'background.surface',
       }}
     >
-      <Link href={SCHOOL_LINK} target="_blank" rel="noreferrer" id="rs-school-link">
+      <Link
+        href={SCHOOL_LINK}
+        target="_blank"
+        rel="noreferrer"
+        id="rs-school-link"
+        sx={{ display: { xs: 'none', sm: 'block', height: 24 } }}
+      >
         <FooterLogo />
       </Link>
       <Box
@@ -49,7 +55,9 @@ export const Footer = () => {
       >
         {links}
       </Box>
-      <Typography sx={{ width: { md: 'auto', lg: 102 }, textAlign: 'right' }}>2022</Typography>
+      <Typography sx={{ width: { md: 'auto', lg: 65 }, textAlign: 'right', fontSize: { xs: 12, sm: 'inherit' } }}>
+        2022
+      </Typography>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
 import Box from '@mui/joy/Box';
 import ButtonRoot from '@mui/joy/Button';
 import { useTranslation } from 'react-i18next';
@@ -16,7 +16,7 @@ export const SearchHeader = () => {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-      <ButtonRoot color="neutral" variant="plain" startDecorator={<ArrowBackIosNewRoundedIcon />} onClick={onClick}>
+      <ButtonRoot color="neutral" variant="plain" startDecorator={<KeyboardArrowLeftRoundedIcon />} onClick={onClick}>
         {t('toMainPage')}
       </ButtonRoot>
     </Box>

@@ -8,9 +8,10 @@ export const ModeToggle = () => {
   return (
     <IconButton
       id="toggle-mode"
-      size="md"
+      size="sm"
       variant="outlined"
       color="neutral"
+      sx={{ borderRadius: 50 }}
       onClick={() => {
         if (mode === 'light') {
           setMode('dark');
