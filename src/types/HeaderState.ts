@@ -1,6 +1,4 @@
 export enum HeaderState {
   notLogged = 'notLogged',
-  loggedWelcome = 'loggedWelcome',
-  main = 'main',
-  profile = 'profile',
+  logged = 'logged',
 }

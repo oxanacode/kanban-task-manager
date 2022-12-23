@@ -15,18 +15,14 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
   const { t } = useTranslation();
   const { isUserLogIn } = useAppSelector((state) => state.user);
   const location = useLocation();
-  const [currentLocation, setCurrentLocation] = useState(HeaderState.main);
+  const [currentLocation, setCurrentLocation] = useState(HeaderState.notLogged);
   let nav;
 
   useEffect(() => {
     if (!isUserLogIn) {
       setCurrentLocation(HeaderState.notLogged);
-    } else if (location.pathname === ROUTES.PROFILE.path) {
-      setCurrentLocation(HeaderState.profile);
-    } else if (location.pathname === ROUTES.WELCOME.path || location.pathname === ROUTES.ROOT.path) {
-      setCurrentLocation(HeaderState.loggedWelcome);
     } else {
-      setCurrentLocation(HeaderState.main);
+      setCurrentLocation(HeaderState.logged);
     }
   }, [isUserLogIn, location.pathname]);
 
@@ -34,77 +30,43 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     return placedInHeader ? { xs: 'none', sm: 'flex' } : 'flex';
   };
 
-  switch (currentLocation) {
-    case HeaderState.main:
-      nav = (
-        <>
-          <NavButton
-            route={ROUTES.PROFILE.path}
-            variant={'outlined'}
-            color={'neutral'}
-            text={t('profile')}
-            isHeader={placedInHeader}
-          >
-            <PersonOutlineRoundedIcon color="primary" />
-          </NavButton>
-          <SignOutButton isHeader={placedInHeader} />
-        </>
-      );
-      break;
-    case HeaderState.profile:
-      nav = (
-        <>
-          <NavButton
-            route={ROUTES.MAIN.path}
-            variant={'outlined'}
-            color={'neutral'}
-            text={t('toMainPage')}
-            isHeader={placedInHeader}
-          >
-            <HomeOutlinedIcon color="primary" />
-          </NavButton>
-          <SignOutButton isHeader={placedInHeader} />
-        </>
-      );
-      break;
-    case HeaderState.loggedWelcome:
-      nav = (
-        <>
-          <NavButton
-            route={ROUTES.MAIN.path}
-            variant={'outlined'}
-            color={'neutral'}
-            text={t('toMainPage')}
-            isHeader={placedInHeader}
-          >
-            <HomeOutlinedIcon color="primary" />
-          </NavButton>
-          <NavButton
-            route={ROUTES.PROFILE.path}
-            variant={'outlined'}
-            color={'neutral'}
-            text={t('profile')}
-            isHeader={placedInHeader}
-          >
-            <PersonOutlineRoundedIcon color="primary" />
-          </NavButton>
-          <SignOutButton isHeader={placedInHeader} />
-        </>
-      );
-      break;
-    default:
-      nav = (
-        <>
-          <NavButton
-            route={ROUTES.SIGN_IN.path}
-            variant={'outlined'}
-            color={'neutral'}
-            text={t('signIn')}
-            isHeader={placedInHeader}
-          />
-          <NavButton route={ROUTES.SIGN_UP.path} variant={'solid'} text={t('signUp')} isHeader={placedInHeader} />
-        </>
-      );
+  if (currentLocation === HeaderState.logged) {
+    nav = (
+      <>
+        <NavButton
+          route={ROUTES.MAIN.path}
+          variant={'outlined'}
+          color={'neutral'}
+          text={t('toMainPage')}
+          isHeader={placedInHeader}
+        >
+          <HomeOutlinedIcon color="primary" />
+        </NavButton>
+        <NavButton
+          route={ROUTES.PROFILE.path}
+          variant={'outlined'}
+          color={'neutral'}
+          text={t('profile')}
+          isHeader={placedInHeader}
+        >
+          <PersonOutlineRoundedIcon color="primary" />
+        </NavButton>
+        <SignOutButton isHeader={placedInHeader} />
+      </>
+    );
+  } else {
+    nav = (
+      <>
+        <NavButton
+          route={ROUTES.SIGN_IN.path}
+          variant={'outlined'}
+          color={'neutral'}
+          text={t('signIn')}
+          isHeader={placedInHeader}
+        />
+        <NavButton route={ROUTES.SIGN_UP.path} variant={'solid'} text={t('signUp')} isHeader={placedInHeader} />
+      </>
+    );
   }
 
   return (
