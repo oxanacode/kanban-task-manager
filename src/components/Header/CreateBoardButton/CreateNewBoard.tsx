@@ -1,6 +1,9 @@
 import { Button } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import { ROUTES } from '../../../constants/routes';
 
 import { useAppSelector } from '../../../store/hooks';
 
@@ -11,6 +14,7 @@ export const CreateNewBoard = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { sideDrawer } = useAppSelector((state) => state.header);
+  const navigate = useNavigate();
 
   const onClick = () => {
     dispatch(setIsOpenedDialogAddBoard(true));
@@ -18,6 +22,8 @@ export const CreateNewBoard = () => {
     if (sideDrawer) {
       dispatch(closeSideDrawer());
     }
+
+    navigate(ROUTES.MAIN.path);
   };
 
   return (

@@ -3,18 +3,17 @@ import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded';
 import Box from '@mui/joy/Box';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 
 import { ROUTES } from '../../../constants/routes';
 import { useAppSelector } from '../../../store/hooks';
 import { HeaderState } from '../../../types/HeaderState';
+import { CreateNewBoard } from '../CreateBoardButton';
 import { NavButton } from '../NavButton';
 import { SignOutButton } from '../SignOutButton';
 
 export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
   const { t } = useTranslation();
   const { isUserLogIn } = useAppSelector((state) => state.user);
-  const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(HeaderState.notLogged);
   let nav;
 
@@ -24,7 +23,7 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
     } else {
       setCurrentLocation(HeaderState.logged);
     }
-  }, [isUserLogIn, location.pathname]);
+  }, [isUserLogIn]);
 
   const handleDisplay = () => {
     return placedInHeader ? { xs: 'none', sm: 'flex' } : 'flex';
@@ -33,6 +32,7 @@ export const Nav = ({ placedInHeader }: { placedInHeader: boolean }) => {
   if (currentLocation === HeaderState.logged) {
     nav = (
       <>
+        <CreateNewBoard />
         <NavButton
           route={ROUTES.MAIN.path}
           variant={'outlined'}
